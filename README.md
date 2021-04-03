@@ -12,7 +12,7 @@ So our goal is to throttle it with a simple sleep
 
 To do that with this crate: (taking speedtest program as an example)
 
-1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what the
+1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what is the
 function's input/output
 
 2- use this crate
