@@ -17,10 +17,11 @@
 //!
 //!2- use this crate
 //!```rust
+//!use rhook::{run_with, Hook};
 //!run_with(vec!("speedtest"), vec!(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
-//!  std::thread::sleep_ms(100);
+//!  std::thread::sleep_ms(10);
 //!  original_recv(sockfd, buf, len, flags)
-//!}))))
+//!}))));
 //!```
 //!
 //!Thats it!
@@ -33,6 +34,9 @@
 //!you don't free it
 //!
 //!Check out the tests for more examples
+
+#[cfg(not(unix))]
+compile_error!("This crate is unix only");
 
 mod libc;
 use std::io::Write;
@@ -136,7 +140,7 @@ fn run_program(p: Vec<&str>) -> Result<()> {
 mod tests {
     use super::*;
     #[test]
-    // see what file it acess
+    // see what file it access
     fn cat() {
         run_with(
             vec!["cat", "Cargo.toml"],
