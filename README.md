@@ -2,7 +2,7 @@
 
 Hooks libc functions with an easy API
 
-Example:
+## Example
 
 Say you want to limit the badnwhidth of a program
 
