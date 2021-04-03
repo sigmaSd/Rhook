@@ -34,7 +34,7 @@ Couple of points:
 - If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
 you don't free it
 
-- To check if a program dynamicly load libc use `ldd $path_to_program`
+- To check if a program dynamicly loads libc use `ldd $path_to_program`
 
 - To check what libc functions a program calls use `nm -D $path_to_program`
 
