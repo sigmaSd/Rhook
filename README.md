@@ -18,6 +18,7 @@ function's input/output
 2- use this crate
 ```rust
 use rhook::{run_with, Hook};
+
 run_with(vec!("speedtest"), vec!(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
   std::thread::sleep_ms(100);
   original_recv(sockfd, buf, len, flags)
