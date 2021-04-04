@@ -48,7 +48,7 @@
 #[cfg(not(unix))]
 compile_error!("This crate is unix only");
 
-mod libc;
+mod libcfn;
 use std::{
     collections::HashSet,
     io::{self, Write},
@@ -74,6 +74,8 @@ pub enum Hook {
     OpenDir(&'static str),
     /// fn recv( socket: c_int, buf: *mut c_void, len: size_t, flags: c_int,) -> ssize_t
     Recv(&'static str),
+    /// fn recvmsg( fd: c_int, msg: *mut msghdr, flags: c_int) -> ssize_t
+    RecvMsg(&'static str),
     /// fn read( fd: c_int, buf: *mut c_void, count: size_t) -> ssize_t
     Read(&'static str),
 }
@@ -103,16 +105,19 @@ impl RunHook for Command {
         for hook in HOOKS.lock().expect("There is only one thread").drain() {
             match hook {
                 Hook::Open(fun) => {
-                    append(libc::open(fun))?;
+                    append(libcfn::open(fun))?;
                 }
                 Hook::OpenDir(fun) => {
-                    append(libc::opendir(fun))?;
+                    append(libcfn::opendir(fun))?;
                 }
                 Hook::Recv(fun) => {
-                    append(libc::recv(fun))?;
+                    append(libcfn::recv(fun))?;
+                }
+                Hook::RecvMsg(fun) => {
+                    append(libcfn::recv_msg(fun))?;
                 }
                 Hook::Read(fun) => {
-                    append(libc::read(fun))?;
+                    append(libcfn::read(fun))?;
                 }
             }
         }
@@ -127,8 +132,11 @@ fn prepare() -> Result<()> {
     const CARGO_TOML: &str = r#"[package]
 name = "rhookdyl"
 version = "0.1.0"
+edition = "2018"
 [lib]
-crate-type = ["dylib"]"#;
+crate-type = ["dylib"]
+[dependencies]
+libc = "0.2.92""#;
 
     // Ignore project already exists error
     Command::new("cargo")
