@@ -22,7 +22,7 @@ So our goal is to throttle it with a simple sleep
 
 To do that with this crate: (taking speedtest program as an example)
 
-1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what the
+1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what is the
 function's input/output
 
 2- use this crate
@@ -42,6 +42,10 @@ Note that you have acess inside the closure to the original function denoted by 
 Couple of points:
 - If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
 you don't free it
+
+- To check if a program dynamicly loads libc use `ldd $path_to_program`
+
+- To check what libc functions a program calls use `nm -D $path_to_program`
 
 Check out the tests for more examples
 
