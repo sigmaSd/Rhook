@@ -56,7 +56,6 @@ use std::{
 };
 
 use once_cell::sync::Lazy;
-use std::io::Read;
 use std::process::{Command, Stdio};
 
 //type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -164,24 +163,19 @@ fn append(fun: String) -> Result<()> {
 
 /// Build the dynamic library
 fn build_dylib() -> Result<()> {
-    let mut process = Command::new("cargo")
+    let status = Command::new("cargo")
         .arg("b")
         .current_dir("/tmp/rhookdyl")
         .env("CARGO_TARGET_DIR", "/tmp/rhookdyl/target")
-        .stderr(Stdio::piped())
-        .spawn()?;
+        .spawn()?
+        .wait()?;
 
-    let mut stderr = String::new();
-    process
-        .stderr
-        .as_mut()
-        .expect("stderr is piped")
-        .read_to_string(&mut stderr)?;
-
-    let status = process.wait()?;
     if status.success() {
         Ok(())
     } else {
-        Err(io::Error::new(io::ErrorKind::Other, stderr))
+        Err(io::Error::new(
+            io::ErrorKind::Other,
+            "failed to compile the dynamic library",
+        ))
     }
 }
