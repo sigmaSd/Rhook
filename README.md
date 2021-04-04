@@ -50,6 +50,6 @@ you don't free it
 
 - To check what libc functions a program calls use `nm -D $path_to_program`
 
-Check out the tests for more examples
+Check out the examples for more info
 
 License: MIT

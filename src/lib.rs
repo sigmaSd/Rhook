@@ -43,7 +43,7 @@
 //!- If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
 //!you don't free it
 //!
-//!Check out the tests for more examples
+//!Check out the examples for more info
 
 #[cfg(not(unix))]
 compile_error!("This crate is unix only");
