@@ -2,6 +2,9 @@
 
 Hook libc functions with an easy API
 
+## Docs
+https://docs.rs/rhook
+
 ### Usage
 
 1- Import the trait [RunHook]
