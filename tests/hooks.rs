@@ -1,57 +1,69 @@
 #[cfg(test)]
 mod tests {
     use rhook::*;
+    use std::process::Command;
     #[test]
     // see what file it access
     fn cat() {
-        run_with(
-            vec!["cat", "Cargo.toml"],
-            vec![Hook::Open(stringify!(|path, flags| {
+        Command::new("cat")
+            .arg("Cargo.toml")
+            .add_hook(Hook::Open(stringify!(|path, flags| {
                 use std::ffi::CString;
                 use std::mem::ManuallyDrop;
                 let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
                 dbg!(&path_name);
                 original_open(path, flags)
-            }))],
-        )
-        .unwrap();
+            })))
+            .set_hooks()
+            .unwrap()
+            .spawn()
+            .unwrap()
+            .wait()
+            .unwrap();
     }
 
     #[test]
     // see what directories it opens
     fn ls() {
-        run_with(
-            vec!["ls", "-l"],
-            vec![Hook::OpenDir(stringify!(|dirname| {
+        Command::new("ls")
+            .arg("-l")
+            .add_hook(Hook::OpenDir(stringify!(|dirname| {
                 dbg!(&std::mem::ManuallyDrop::new(std::ffi::CString::from_raw(
                     dirname as _
                 )));
                 original_opendir(dirname)
-            }))],
-        )
-        .unwrap();
+            })))
+            .set_hooks()
+            .unwrap()
+            .spawn()
+            .unwrap()
+            .wait()
+            .unwrap();
     }
 
     #[test]
     // limit bandwidth
     fn speedtest() {
-        run_with(
-            vec!["speedtest"],
-            vec![Hook::Recv(stringify!(|socket, buf, len, flags| {
+        Command::new("speedtest")
+            .add_hook(Hook::Recv(stringify!(|socket, buf, len, flags| {
                 std::thread::sleep(std::time::Duration::from_millis(180));
                 original_recv(socket, buf, len, flags)
-            }))],
-        )
-        .unwrap();
+            })))
+            .set_hooks()
+            .unwrap()
+            .spawn()
+            .unwrap()
+            .wait()
+            .unwrap();
     }
 
     #[test]
     // return fake data for read
     // not yet working, still figuring this out
     fn fake_cat() {
-        run_with(
-            vec!["cat", "Cargo.toml"],
-            vec![
+        Command::new("cat")
+            .arg("Cargo.toml")
+            .add_hooks(vec![
                 Hook::Read(stringify!(|fd, buf, count| {
                     use std::mem::ManuallyDrop;
                     let mut b = vec![0; count];
@@ -69,8 +81,12 @@ mod tests {
                     dbg!(&path_name);
                     original_open(path, flags)
                 })),
-            ],
-        )
-        .unwrap();
+            ])
+            .set_hooks()
+            .unwrap()
+            .spawn()
+            .unwrap()
+            .wait()
+            .unwrap();
     }
 }

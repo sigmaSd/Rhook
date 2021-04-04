@@ -1,10 +1,20 @@
 # Rhook
 
-Hooks libc functions with an easy API
+Hook libc functions with an easy API
 
-## Example
+### Usage
 
-Say you want to limit the badnwhidth of a program
+1- Import the trait [RunHook]
+
+2- Create an [Command](std::process::Command) with [Command::new](std::process::Command::new) and add hooks to it via [add_hook](RunHook::add_hook) and [add_hooks](RunHook::add_hooks) methods
+
+3- Confirm the hooks with [set_hooks](RunHook::set_hooks) method this step is necessary
+
+4- Now you can carry on with the usual [Command](std::process::Command) methods ([output](std::process::Command::output), [spawn](std::process::Command::spawn),[status](std::process::Command::status),..)
+
+### Example
+
+Say you want to limit the bandwidth of a program
 
 Usually downloading calls `libc::recv` function
 
@@ -17,21 +27,22 @@ function's input/output
 
 2- use this crate
 ```rust
-use rhook::{run_with, Hook};
+use rhook::{RunHook, Hook};
 
-run_with(vec!("speedtest"), vec!(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
-  std::thread::sleep_ms(100);
-  original_recv(sockfd, buf, len, flags)
-}))))
+std::process::Command::new("speedtest").add_hook(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
+ std::thread::sleep_ms(10);
+ original_recv(sockfd, buf, len, flags)
+}))).set_hooks().unwrap().spawn();
 ```
 
 Thats it!
 Note that you have acess inside the closure to the original function denoted by the prefix
 `original_` + the function name
 
-
 Couple of points:
 - If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
 you don't free it
 
 Check out the tests for more examples
+
+License: MIT
