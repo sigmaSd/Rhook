@@ -12,6 +12,16 @@
 //!
 //!4- Now you can carry on with the usual [Command](std::process::Command) methods ([output](std::process::Command::output), [spawn](std::process::Command::spawn),[status](std::process::Command::status),..)
 //!
+//!
+//!**Tricks:**
+//!
+//! The closure used for hooks have acess to many things: (imported by https://github.com/sigmaSd/Rhook/blob/master/src/scaffold.rs)
+//! - closure input (which is the libc function input)
+//! - closure output (which is the libc function output)
+//! - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
+//! - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
+//!
+//!
 //!## Example
 //!
 //!Say you want to limit the bandwidth of a program
