@@ -27,3 +27,5 @@ libc!(fn recv(
         ) -> ssize_t);
 libc!(fn read(fd: c_int, buf: *mut c_void, count: size_t) -> ssize_t);
 libc!(fn recv_msg(fd: c_int, msg: *mut msghdr, flags: c_int) -> ssize_t);
+
+libc!(fn getenv(s: *const c_char) -> *mut c_char);

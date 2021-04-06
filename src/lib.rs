@@ -77,6 +77,8 @@ pub enum Hook {
     RecvMsg(&'static str),
     /// fn read( fd: c_int, buf: *mut c_void, count: size_t) -> ssize_t
     Read(&'static str),
+    /// fn getenv(s: *const c_char) -> *mut c_char
+    GetEnv(&'static str),
 }
 
 /// Specify libc hooks for a Command
@@ -117,6 +119,9 @@ impl RunHook for Command {
                 }
                 Hook::Read(fun) => {
                     append(libcfn::read(fun))?;
+                }
+                Hook::GetEnv(fun) => {
+                    append(libcfn::getenv(fun))?;
                 }
             }
         }
