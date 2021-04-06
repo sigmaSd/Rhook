@@ -7,3 +7,5 @@ use libc::*;
 use std::ffi::CString;
 use std::mem::transmute;
 use std::mem::ManuallyDrop;
+
+static mut COUNTER: isize = 0;
