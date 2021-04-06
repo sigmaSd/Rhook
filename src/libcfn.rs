@@ -4,6 +4,7 @@ macro_rules! libc {
         format!("{function_type}
             {{
             let original_{function_name} = dlsym(RTLD_NEXT, \"{function_name}\0\".as_ptr() as _);
+            #[allow(unused_variables)]
             let original_{function_name}: {function_type_without_vars} = transmute(original_{function_name});
             ({user_closure})({function_vars})
             }}
