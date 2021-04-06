@@ -4,4 +4,6 @@
 #![allow(unused_imports)]
 
 use libc::*;
+use std::ffi::CString;
 use std::mem::transmute;
+use std::mem::ManuallyDrop;
