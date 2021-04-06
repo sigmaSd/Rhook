@@ -1,7 +1,6 @@
 macro_rules! libc {
-(fn $name: ident ($($arg: ident: $typee: ty$(,)?)*) -> $ret_type: ty) => (
+(fn $name: ident($($arg: ident: $typee: ty$(,)?)*) -> $ret_type: ty) => (
     pub(crate) fn $name(fun: &str) -> String {
-        let name = stringify!($name);
         format!("{function_type}
             {{
             let original_{function_name} = dlsym(RTLD_NEXT, \"{function_name}\0\".as_ptr() as _);
@@ -9,16 +8,11 @@ macro_rules! libc {
             ({user_closure}){function_vars} 
             }}
             "
-
-        ,function_type =  stringify!(
-            #[no_mangle]
-            pub unsafe extern "C" fn $name ($($arg: $typee,)*) -> $ret_type ).to_string()
-        ,function_type_without_vars =  stringify!( extern "C" fn($($typee,)*) -> $ret_type)
-        ,function_vars =  stringify!( ($($arg,)*))
-        ,function_name = name
-        ,user_closure = fun)
-
-    })
+        ,function_type = stringify!(#[no_mangle] pub unsafe extern "C" fn $name ($($arg: $typee,)*) -> $ret_type).to_string()
+        ,function_type_without_vars = stringify!(extern "C" fn($($typee,)*) -> $ret_type)
+        ,function_vars = stringify!(($($arg,)*))
+        ,function_name = stringify!($name)
+        ,user_closure = fun)})
 }
 
 // libc functions starts here
