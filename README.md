@@ -20,8 +20,8 @@ https://docs.rs/rhook
 The closure used for hooks have acess to many things: (imported by https://github.com/sigmaSd/Rhook/blob/master/src/scaffold.rs)
 - closure input (which is the libc function input)
 - closure output (which is the libc function output)
-- The original function with the following name `original_$fn` this is useful in particular to avoid recursion
-- Some varaible to make coding easier transmute ManuallyDrop CString and static mut COUNTER
+- The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
+- Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 
 
 
