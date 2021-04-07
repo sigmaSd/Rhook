@@ -1,0 +1,757 @@
+ *mut c_uchar
+ *mut cmsghdr
+ c_uint
+ *mut cmsghdr
+ c_uint
+ size_t
+()
+ c_int
+ c_int
+ bool
+ bool
+()
+()
+()
+ bool
+()
+()
+ u8
+ u8
+ u8
+ u8
+ u8
+ u8
+ c_int
+ c_int
+ u32
+ bool
+ u8
+ *mut sockaddr
+ bool
+ c_int
+ bool
+ bool
+ bool
+ bool
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_int
+ !
+ !
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ ssize_t
+ c_int
+ c_int
+ c_uint
+ c_int
+ c_double
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_void
+ *mut c_void
+ speed_t
+ speed_t
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ ssize_t
+ c_int
+ c_int
+ c_int
+ c_double
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ *mut c_void
+ *mut c_void
+ *mut c_void
+ c_int
+ c_int
+ c_int
+ locale_t
+()
+ c_int
+()
+()
+()
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ !
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut FILE
+ *mut DIR
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ ssize_t
+ c_int
+ ssize_t
+ c_int
+ *mut FILE
+ *mut FILE
+ *mut FILE
+ pid_t
+ pid_t
+ c_long
+ c_int
+ c_int
+ c_int
+ size_t
+ size_t
+()
+()
+()
+()
+ c_int
+ *mut FILE
+ *mut FILE
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_long
+ off_t
+ off64_t
+ key_t
+ c_int
+ c_int
+ c_int
+ c_int
+ size_t
+ *const c_char
+ c_int
+ c_ulong
+ c_int
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ c_int
+ gid_t
+ *mut c_char
+ uid_t
+ gid_t
+ *mut group
+ c_int
+ *mut group
+ c_int
+ *mut group
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ ssize_t
+ c_int
+ *mut c_char
+ *mut mntent
+ c_int
+ c_int
+ c_int
+ pid_t
+ pid_t
+ pid_t
+ pid_t
+ c_int
+ *mut protoent
+ *mut protoent
+ c_int
+ *mut passwd
+ c_int
+ *mut passwd
+ c_int
+ *mut passwd
+ c_int
+ ssize_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut servent
+ *mut servent
+ *mut servent
+ pid_t
+ c_int
+ c_int
+ *mut spwd
+ c_int
+ *mut spwd
+ c_int
+ pid_t
+ c_int
+ uid_t
+ *mut utmpx
+ *mut utmpx
+ *mut utmpx
+ ssize_t
+ c_int
+ c_int
+()
+()
+ *mut tm
+ *mut tm
+ c_int
+ *mut c_char
+ size_t
+ c_int
+ iconv_t
+()
+ *mut c_char
+ *mut if_nameindex
+ c_uint
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_long
+ c_int
+ ssize_t
+ c_int
+ c_int
+ c_int
+ c_int
+ ssize_t
+ ssize_t
+ *mut lconv
+ *mut tm
+ *mut tm
+ c_int
+ c_int
+ c_int
+ off_t
+ off64_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_uint
+()
+ dev_t
+ mallinfo
+ *mut c_void
+ size_t
+ c_int
+ *mut c_void
+ *mut c_void
+ c_int
+ *mut c_void
+ *mut c_void
+ *mut c_void
+ *mut c_void
+ *mut c_void
+ c_int
+ c_uint
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ time_t
+ c_int
+ c_int
+ *mut c_void
+ *mut c_void
+ c_int
+ c_int
+ c_int
+ c_int
+ mqd_t
+ ssize_t
+ c_int
+ c_int
+ ssize_t
+ c_int
+ c_int
+ *mut c_void
+ c_int
+ c_int
+ ssize_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ locale_t
+ c_int
+ *mut c_char
+ *mut c_char
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut FILE
+ *mut FILE
+ c_int
+ c_int
+ *mut DIR
+()
+ c_int
+ c_long
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut FILE
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ ssize_t
+ ssize_t
+ ssize_t
+ ssize_t
+ ssize_t
+ c_int
+ c_int
+ c_int
+ isize
+ isize
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ !
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_void
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ pthread_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_long
+ *mut c_char
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut utmpx
+ ssize_t
+ ssize_t
+ ssize_t
+ ssize_t
+ ssize_t
+()
+()
+ c_int
+ c_int
+ c_int
+ ssize_t
+ ssize_t
+ *mut dirent
+ *mut dirent64
+ c_int
+ c_int
+ ssize_t
+ ssize_t
+ ssize_t
+ *mut c_void
+ *mut c_char
+ c_int
+ ssize_t
+ ssize_t
+ c_int
+ ssize_t
+ c_int
+ size_t
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+()
+ c_int
+ *mut c_void
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut sem_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ ssize_t
+ ssize_t
+ ssize_t
+ c_int
+ ssize_t
+ ssize_t
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ *mut FILE
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ pid_t
+ c_int
+()
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_void
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ sighandler_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_uint
+ c_int
+ c_int
+ c_int
+ ssize_t
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_char
+ *mut c_char
+ *mut c_char
+ c_int
+ c_int
+ *mut c_char
+ size_t
+ *mut c_char
+ *mut c_char
+ c_int
+ size_t
+ c_int
+ *mut c_char
+ c_int
+ *mut c_char
+ *mut c_char
+ size_t
+ *mut c_char
+ *mut c_char
+ *mut c_char
+ size_t
+ *mut c_char
+ c_double
+ *mut c_char
+ c_long
+ c_ulong
+ size_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+()
+ c_int
+ c_long
+ c_long
+ c_int
+ c_int
+()
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ pid_t
+ pid_t
+ c_int
+ c_int
+ c_int
+ ssize_t
+ c_long
+ time_t
+ time_t
+ c_int
+ c_int
+ c_int
+ clock_t
+ *mut FILE
+ *mut FILE
+ *mut c_char
+ c_int
+ c_int
+ c_int
+ c_int
+ *mut c_char
+ c_int
+ mode_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ locale_t
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ c_int
+ pid_t
+ c_int
+ ssize_t
+ pid_t
+ pid_t
+ c_int
+ pid_t
+ size_t
+ size_t
+ *mut wchar_t
+ ssize_t
+ ssize_t

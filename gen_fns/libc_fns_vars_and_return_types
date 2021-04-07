@@ -1,0 +1,757 @@
+CMSG_DATA				     *mut c_uchar
+CMSG_FIRSTHDR				     *mut cmsghdr
+CMSG_LEN				     c_uint
+CMSG_NXTHDR				     *mut cmsghdr
+CMSG_SPACE				     c_uint
+CPU_ALLOC_SIZE				     size_t
+CPU_CLR					    ()
+CPU_COUNT				     c_int
+CPU_COUNT_S				     c_int
+CPU_EQUAL				     bool
+CPU_ISSET				     bool
+CPU_SET					    ()
+CPU_ZERO				    ()
+FD_CLR					    ()
+FD_ISSET				     bool
+FD_SET					    ()
+FD_ZERO					    ()
+IPOPT_CLASS				     u8
+IPOPT_COPIED				     u8
+IPOPT_NUMBER				     u8
+IPTOS_ECN				     u8
+IPTOS_PREC				     u8
+IPTOS_TOS				     u8
+NLA_ALIGN				     c_int
+QCMD					     c_int
+RT_ADDRCLASS				     u32
+RT_LOCALADDR				     bool
+RT_TOS					     u8
+SO_EE_OFFENDER				     *mut sockaddr
+WCOREDUMP				     bool
+WEXITSTATUS				     c_int
+WIFCONTINUED				     bool
+WIFEXITED				     bool
+WIFSIGNALED				     bool
+WIFSTOPPED				     bool
+WSTOPSIG				     c_int
+WTERMSIG				     c_int
+W_EXITCODE				     c_int
+W_STOPCODE				     c_int
+__errno_location			     *mut c_int
+_exit					     !
+abort					     !
+abs					     c_int
+accept					     c_int
+accept4					     c_int
+access					     c_int
+acct					     c_int
+addmntent				     c_int
+adjtimex				     c_int
+aio_cancel				     c_int
+aio_error				     c_int
+aio_fsync				     c_int
+aio_read				     c_int
+aio_return				     ssize_t
+aio_suspend				     c_int
+aio_write				     c_int
+alarm					     c_uint
+atexit					     c_int
+atof					     c_double
+atoi					     c_int
+backtrace				     c_int
+bind					     c_int
+brk					     c_int
+bsearch					     *mut c_void
+calloc					     *mut c_void
+cfgetispeed				     speed_t
+cfgetospeed				     speed_t
+cfmakeraw				    ()
+cfsetispeed				     c_int
+cfsetospeed				     c_int
+cfsetspeed				     c_int
+chdir					     c_int
+chmod					     c_int
+chown					     c_int
+chroot					     c_int
+clearenv				     c_int
+clearerr				    ()
+clock_getcpuclockid			     c_int
+clock_getres				     c_int
+clock_gettime				     c_int
+clock_nanosleep				     c_int
+clock_settime				     c_int
+clone					     c_int
+close					     c_int
+closedir				     c_int
+closelog				    ()
+connect					     c_int
+copy_file_range				     ssize_t
+creat					     c_int
+creat64					     c_int
+daemon					     c_int
+difftime				     c_double
+dirfd					     c_int
+dl_iterate_phdr				     c_int
+dladdr					     c_int
+dlclose					     c_int
+dlerror					     *mut c_char
+dlinfo					     c_int
+dlmopen					     *mut c_void
+dlopen					     *mut c_void
+dlsym					     *mut c_void
+dup					     c_int
+dup2					     c_int
+dup3					     c_int
+duplocale				     locale_t
+endgrent				    ()
+endmntent				     c_int
+endpwent				    ()
+endservent				    ()
+endspent				    ()
+endutxent				    ()
+epoll_create				     c_int
+epoll_create1				     c_int
+epoll_ctl				     c_int
+epoll_pwait				     c_int
+epoll_wait				     c_int
+eventfd					     c_int
+execl					     c_int
+execle					     c_int
+execlp					     c_int
+execv					     c_int
+execve					     c_int
+execvp					     c_int
+execvpe					     c_int
+exit					     !
+faccessat				     c_int
+fallocate				     c_int
+fallocate64				     c_int
+fanotify_init				     c_int
+fanotify_mark				     c_int
+fchdir					     c_int
+fchmod					     c_int
+fchmodat				     c_int
+fchown					     c_int
+fchownat				     c_int
+fclose					     c_int
+fcntl					     c_int
+fdatasync				     c_int
+fdopen					     *mut FILE
+fdopendir				     *mut DIR
+feof					     c_int
+ferror					     c_int
+fexecve					     c_int
+fflush					     c_int
+fgetc					     c_int
+fgetpos					     c_int
+fgetpos64				     c_int
+fgets					     *mut c_char
+fgetspent_r				     c_int
+fgetxattr				     ssize_t
+fileno					     c_int
+flistxattr				     ssize_t
+flock					     c_int
+fmemopen				     *mut FILE
+fopen					     *mut FILE
+fopen64					     *mut FILE
+fork					     pid_t
+forkpty					     pid_t
+fpathconf				     c_long
+fprintf					     c_int
+fputc					     c_int
+fputs					     c_int
+fread					     size_t
+fread_unlocked				     size_t
+free					    ()
+freeaddrinfo				    ()
+freeifaddrs				    ()
+freelocale				    ()
+fremovexattr				     c_int
+freopen					     *mut FILE
+freopen64				     *mut FILE
+fscanf					     c_int
+fseek					     c_int
+fseeko					     c_int
+fseeko64				     c_int
+fsetpos					     c_int
+fsetpos64				     c_int
+fsetxattr				     c_int
+fstat					     c_int
+fstat64					     c_int
+fstatat					     c_int
+fstatat64				     c_int
+fstatfs					     c_int
+fstatfs64				     c_int
+fstatvfs				     c_int
+fstatvfs64				     c_int
+fsync					     c_int
+ftell					     c_long
+ftello					     off_t
+ftello64				     off64_t
+ftok					     key_t
+ftruncate				     c_int
+ftruncate64				     c_int
+futimens				     c_int
+futimes					     c_int
+fwrite					     size_t
+gai_strerror				     *const c_char
+getaddrinfo				     c_int
+getauxval				     c_ulong
+getchar					     c_int
+getchar_unlocked			     c_int
+getcontext				     c_int
+getcwd					     *mut c_char
+getdomainname				     c_int
+getdtablesize				     c_int
+getegid					     gid_t
+getenv					     *mut c_char
+geteuid					     uid_t
+getgid					     gid_t
+getgrent				     *mut group
+getgrent_r				     c_int
+getgrgid				     *mut group
+getgrgid_r				     c_int
+getgrnam				     *mut group
+getgrnam_r				     c_int
+getgrouplist				     c_int
+getgroups				     c_int
+gethostname				     c_int
+getifaddrs				     c_int
+getline					     ssize_t
+getloadavg				     c_int
+getlogin				     *mut c_char
+getmntent				     *mut mntent
+getnameinfo				     c_int
+getopt					     c_int
+getpeername				     c_int
+getpgid					     pid_t
+getpgrp					     pid_t
+getpid					     pid_t
+getppid					     pid_t
+getpriority				     c_int
+getprotobyname				     *mut protoent
+getprotobynumber			     *mut protoent
+getpt					     c_int
+getpwent				     *mut passwd
+getpwent_r				     c_int
+getpwnam				     *mut passwd
+getpwnam_r				     c_int
+getpwuid				     *mut passwd
+getpwuid_r				     c_int
+getrandom				     ssize_t
+getresgid				     c_int
+getresuid				     c_int
+getrlimit				     c_int
+getrlimit64				     c_int
+getrusage				     c_int
+getservbyname				     *mut servent
+getservbyport				     *mut servent
+getservent				     *mut servent
+getsid					     pid_t
+getsockname				     c_int
+getsockopt				     c_int
+getspent				     *mut spwd
+getspent_r				     c_int
+getspnam				     *mut spwd
+getspnam_r				     c_int
+gettid					     pid_t
+gettimeofday				     c_int
+getuid					     uid_t
+getutxent				     *mut utmpx
+getutxid				     *mut utmpx
+getutxline				     *mut utmpx
+getxattr				     ssize_t
+glob					     c_int
+glob64					     c_int
+globfree				    ()
+globfree64				    ()
+gmtime					     *mut tm
+gmtime_r				     *mut tm
+grantpt					     c_int
+hasmntopt				     *mut c_char
+iconv					     size_t
+iconv_close				     c_int
+iconv_open				     iconv_t
+if_freenameindex			    ()
+if_indextoname				     *mut c_char
+if_nameindex				     *mut if_nameindex
+if_nametoindex				     c_uint
+initgroups				     c_int
+inotify_add_watch			     c_int
+inotify_init				     c_int
+inotify_init1				     c_int
+inotify_rm_watch			     c_int
+ioctl					     c_int
+ioperm					     c_int
+iopl					     c_int
+isalnum					     c_int
+isalpha					     c_int
+isatty					     c_int
+isblank					     c_int
+iscntrl					     c_int
+isdigit					     c_int
+isgraph					     c_int
+islower					     c_int
+isprint					     c_int
+ispunct					     c_int
+isspace					     c_int
+isupper					     c_int
+isxdigit				     c_int
+kill					     c_int
+killpg					     c_int
+labs					     c_long
+lchown					     c_int
+lgetxattr				     ssize_t
+link					     c_int
+linkat					     c_int
+lio_listio				     c_int
+listen					     c_int
+listxattr				     ssize_t
+llistxattr			     ssize_t
+localeconv				     *mut lconv
+localtime				     *mut tm
+localtime_r				     *mut tm
+lockf					     c_int
+login_tty				     c_int
+lremovexattr				     c_int
+lseek					     off_t
+lseek64					     off64_t
+lsetxattr				     c_int
+lstat					     c_int
+lstat64					     c_int
+lutimes					     c_int
+madvise					     c_int
+major					     c_uint
+makecontext				    ()
+makedev					     dev_t
+mallinfo				     mallinfo
+malloc					     *mut c_void
+malloc_usable_size			     size_t
+mallopt					     c_int
+memalign				     *mut c_void
+memchr					     *mut c_void
+memcmp					     c_int
+memcpy					     *mut c_void
+memmem					     *mut c_void
+memmove					     *mut c_void
+memrchr					     *mut c_void
+memset					     *mut c_void
+mincore					     c_int
+minor					     c_uint
+mkdir					     c_int
+mkdirat					     c_int
+mkdtemp					     *mut c_char
+mkfifo					     c_int
+mkfifoat				     c_int
+mknod					     c_int
+mknodat					     c_int
+mkostemp				     c_int
+mkostemps				     c_int
+mkstemp					     c_int
+mkstemps				     c_int
+mktime					     time_t
+mlock					     c_int
+mlockall				     c_int
+mmap					     *mut c_void
+mmap64					     *mut c_void
+mount					     c_int
+mprotect				     c_int
+mq_close				     c_int
+mq_getattr				     c_int
+mq_open					     mqd_t
+mq_receive				     ssize_t
+mq_send					     c_int
+mq_setattr				     c_int
+mq_timedreceive				     ssize_t
+mq_timedsend				     c_int
+mq_unlink				     c_int
+mremap					     *mut c_void
+msgctl					     c_int
+msgget					     c_int
+msgrcv					     ssize_t
+msgsnd					     c_int
+msync					     c_int
+munlock					     c_int
+munlockall				     c_int
+munmap					     c_int
+nanosleep				     c_int
+newlocale				     locale_t
+nice					     c_int
+nl_langinfo				     *mut c_char
+nl_langinfo_l				     *mut c_char
+ntp_adjtime				     c_int
+ntp_gettime				     c_int
+open					     c_int
+open64					     c_int
+open_memstream				     *mut FILE
+open_wmemstream				     *mut FILE
+openat					     c_int
+openat64				     c_int
+opendir					     *mut DIR
+openlog					    ()
+openpty					     c_int
+pathconf				     c_long
+pause					     c_int
+pclose					     c_int
+perror					    ()
+personality				     c_int
+pipe					     c_int
+pipe2					     c_int
+poll					     c_int
+popen					     *mut FILE
+posix_fadvise				     c_int
+posix_fadvise64				     c_int
+posix_fallocate				     c_int
+posix_fallocate64			     c_int
+posix_madvise				     c_int
+posix_memalign				     c_int
+posix_openpt				     c_int
+posix_spawn				     c_int
+posix_spawn_file_actions_addclose    c_int
+posix_spawn_file_actions_adddup2     c_int
+posix_spawn_file_actions_addopen     c_int
+posix_spawn_file_actions_destroy     c_int
+posix_spawn_file_actions_init		     c_int
+posix_spawnattr_destroy			     c_int
+posix_spawnattr_getflags		     c_int
+posix_spawnattr_getpgroup		     c_int
+posix_spawnattr_getschedparam		     c_int
+posix_spawnattr_getschedpolicy		     c_int
+posix_spawnattr_getsigdefault		     c_int
+posix_spawnattr_getsigmask		     c_int
+posix_spawnattr_init			     c_int
+posix_spawnattr_setflags		     c_int
+posix_spawnattr_setpgroup		     c_int
+posix_spawnattr_setschedparam		     c_int
+posix_spawnattr_setschedpolicy		     c_int
+posix_spawnattr_setsigdefault		     c_int
+posix_spawnattr_setsigmask		     c_int
+posix_spawnp				     c_int
+ppoll					     c_int
+prctl					     c_int
+pread					     ssize_t
+pread64					     ssize_t
+preadv					     ssize_t
+preadv2					     ssize_t
+preadv64				     ssize_t
+printf					     c_int
+prlimit					     c_int
+prlimit64				     c_int
+process_vm_readv			     isize
+process_vm_writev			     isize
+pselect					     c_int
+pthread_atfork				     c_int
+pthread_attr_destroy			     c_int
+pthread_attr_getaffinity_np		     c_int
+pthread_attr_getguardsize		     c_int
+pthread_attr_getstack			     c_int
+pthread_attr_init			     c_int
+pthread_attr_setaffinity_np		     c_int
+pthread_attr_setdetachstate		     c_int
+pthread_attr_setstacksize		     c_int
+pthread_cancel				     c_int
+pthread_cond_broadcast			     c_int
+pthread_cond_destroy			     c_int
+pthread_cond_init			     c_int
+pthread_cond_signal			     c_int
+pthread_cond_timedwait			     c_int
+pthread_cond_wait			     c_int
+pthread_condattr_destroy		     c_int
+pthread_condattr_getclock		     c_int
+pthread_condattr_getpshared		     c_int
+pthread_condattr_init			     c_int
+pthread_condattr_setclock		     c_int
+pthread_condattr_setpshared		     c_int
+pthread_create				     c_int
+pthread_detach				     c_int
+pthread_exit				     !
+pthread_getaffinity_np			     c_int
+pthread_getattr_np			     c_int
+pthread_getname_np			     c_int
+pthread_getschedparam			     c_int
+pthread_getspecific			     *mut c_void
+pthread_join				     c_int
+pthread_key_create			     c_int
+pthread_key_delete			     c_int
+pthread_kill				     c_int
+pthread_mutex_destroy			     c_int
+pthread_mutex_init			     c_int
+pthread_mutex_lock			     c_int
+pthread_mutex_timedlock			     c_int
+pthread_mutex_trylock			     c_int
+pthread_mutex_unlock			     c_int
+pthread_mutexattr_destroy		     c_int
+pthread_mutexattr_getpshared		     c_int
+pthread_mutexattr_init			     c_int
+pthread_mutexattr_setpshared		     c_int
+pthread_mutexattr_settype		     c_int
+pthread_rwlock_destroy			     c_int
+pthread_rwlock_init			     c_int
+pthread_rwlock_rdlock			     c_int
+pthread_rwlock_tryrdlock		     c_int
+pthread_rwlock_trywrlock		     c_int
+pthread_rwlock_unlock			     c_int
+pthread_rwlock_wrlock			     c_int
+pthread_rwlockattr_destroy		     c_int
+pthread_rwlockattr_getkind_np		     c_int
+pthread_rwlockattr_getpshared		     c_int
+pthread_rwlockattr_init			     c_int
+pthread_rwlockattr_setkind_np		     c_int
+pthread_rwlockattr_setpshared		     c_int
+pthread_self				     pthread_t
+pthread_setaffinity_np			     c_int
+pthread_setname_np			     c_int
+pthread_setschedparam			     c_int
+pthread_setschedprio			     c_int
+pthread_setspecific			     c_int
+pthread_sigmask				     c_int
+ptrace					     c_long
+ptsname					     *mut c_char
+ptsname_r				     c_int
+putchar					     c_int
+putchar_unlocked			     c_int
+putenv					     c_int
+puts					     c_int
+pututxline				     *mut utmpx
+pwrite					     ssize_t
+pwrite64				     ssize_t
+pwritev					     ssize_t
+pwritev2				     ssize_t
+pwritev64				     ssize_t
+qsort					    ()
+qsort_r					    ()
+quotactl				     c_int
+raise					     c_int
+rand					     c_int
+read					     ssize_t
+readahead				     ssize_t
+readdir					     *mut dirent
+readdir64				     *mut dirent64
+readdir64_r				     c_int
+readdir_r				     c_int
+readlink				     ssize_t
+readlinkat				     ssize_t
+readv					     ssize_t
+realloc					     *mut c_void
+realpath				     *mut c_char
+reboot					     c_int
+recv					     ssize_t
+recvfrom				     ssize_t
+recvmmsg				     c_int
+recvmsg					     ssize_t
+regcomp					     c_int
+regerror				     size_t
+regexec					     c_int
+regfree					    ()
+remap_file_pages			     c_int
+remove					     c_int
+removexattr				     c_int
+rename					     c_int
+renameat				     c_int
+renameat2				     c_int
+res_init				     c_int
+rewind					    ()
+rewinddir				    ()
+rmdir					     c_int
+sbrk					     *mut c_void
+scanf					     c_int
+sched_get_priority_max			     c_int
+sched_get_priority_min			     c_int
+sched_getaffinity			     c_int
+sched_getcpu				     c_int
+sched_getparam				     c_int
+sched_getscheduler			     c_int
+sched_rr_get_interval			     c_int
+sched_setaffinity			     c_int
+sched_setparam				     c_int
+sched_setscheduler			     c_int
+sched_yield				     c_int
+seekdir					    ()
+select					     c_int
+sem_close				     c_int
+sem_destroy				     c_int
+sem_getvalue				     c_int
+sem_init				     c_int
+sem_open				     *mut sem_t
+sem_post				     c_int
+sem_timedwait				     c_int
+sem_trywait				     c_int
+sem_unlink				     c_int
+sem_wait				     c_int
+semctl					     c_int
+semget					     c_int
+semop					     c_int
+send					     ssize_t
+sendfile				     ssize_t
+sendfile64				     ssize_t
+sendmmsg				     c_int
+sendmsg					     ssize_t
+sendto					     ssize_t
+setbuf					    ()
+setcontext				     c_int
+setdomainname				     c_int
+setegid					     c_int
+setenv					     c_int
+seteuid					     c_int
+setfsgid				     c_int
+setfsuid				     c_int
+setgid					     c_int
+setgrent				    ()
+setgroups				     c_int
+sethostname				     c_int
+setlocale				     *mut c_char
+setlogmask				     c_int
+setmntent				     *mut FILE
+setns					     c_int
+setpgid					     c_int
+setpriority				     c_int
+setpwent				    ()
+setregid				     c_int
+setresgid				     c_int
+setresuid				     c_int
+setreuid				     c_int
+setrlimit				     c_int
+setrlimit64				     c_int
+setservent				    ()
+setsid					     pid_t
+setsockopt				     c_int
+setspent				    ()
+settimeofday				     c_int
+setuid					     c_int
+setutxent				    ()
+setvbuf					     c_int
+setxattr				     c_int
+sgetspent_r				     c_int
+shm_open				     c_int
+shm_unlink				     c_int
+shmat					     *mut c_void
+shmctl					     c_int
+shmdt					     c_int
+shmget					     c_int
+shutdown				     c_int
+sigaction				     c_int
+sigaddset				     c_int
+sigaltstack				     c_int
+sigdelset				     c_int
+sigemptyset				     c_int
+sigfillset				     c_int
+sigismember				     c_int
+signal					     sighandler_t
+signalfd				     c_int
+sigpending				     c_int
+sigprocmask				     c_int
+sigsuspend				     c_int
+sigtimedwait				     c_int
+sigwait					     c_int
+sigwaitinfo				     c_int
+sleep					     c_uint
+snprintf				     c_int
+socket					     c_int
+socketpair				     c_int
+splice					     ssize_t
+sprintf					     c_int
+srand					    ()
+sscanf					     c_int
+stat					     c_int
+stat64					     c_int
+statfs					     c_int
+statfs64				     c_int
+statvfs					     c_int
+statvfs64				     c_int
+statx					     c_int
+strcasecmp				     c_int
+strcasestr				     *mut c_char
+strcat					     *mut c_char
+strchr					     *mut c_char
+strcmp					     c_int
+strcoll					     c_int
+strcpy					     *mut c_char
+strcspn					     size_t
+strdup					     *mut c_char
+strerror				     *mut c_char
+strerror_r				     c_int
+strlen					     size_t
+strncasecmp				     c_int
+strncat					     *mut c_char
+strncmp					     c_int
+strncpy					     *mut c_char
+strndup					     *mut c_char
+strnlen					     size_t
+strpbrk					     *mut c_char
+strrchr					     *mut c_char
+strsignal				     *mut c_char
+strspn					     size_t
+strstr					     *mut c_char
+strtod					     c_double
+strtok					     *mut c_char
+strtol					     c_long
+strtoul					     c_ulong
+strxfrm					     size_t
+swapcontext				     c_int
+swapoff					     c_int
+swapon					     c_int
+symlink					     c_int
+symlinkat				     c_int
+sync					    ()
+sync_file_range				     c_int
+syscall					     c_long
+sysconf					     c_long
+sysctl					     c_int
+sysinfo					     c_int
+syslog					    ()
+system					     c_int
+tcdrain					     c_int
+tcflow					     c_int
+tcflush					     c_int
+tcgetattr				     c_int
+tcgetpgrp				     pid_t
+tcgetsid				     pid_t
+tcsendbreak				     c_int
+tcsetattr				     c_int
+tcsetpgrp				     c_int
+tee					     ssize_t
+telldir					     c_long
+time					     time_t
+timegm					     time_t
+timerfd_create				     c_int
+timerfd_gettime				     c_int
+timerfd_settime				     c_int
+times					     clock_t
+tmpfile					     *mut FILE
+tmpfile64				     *mut FILE
+tmpnam					     *mut c_char
+tolower					     c_int
+toupper					     c_int
+truncate				     c_int
+truncate64				     c_int
+ttyname					     *mut c_char
+ttyname_r				     c_int
+umask					     mode_t
+umount					     c_int
+umount2					     c_int
+uname					     c_int
+ungetc					     c_int
+unlink					     c_int
+unlinkat				     c_int
+unlockpt				     c_int
+unsetenv				     c_int
+unshare					     c_int
+uselocale				     locale_t
+usleep					     c_int
+utime					     c_int
+utimensat				     c_int
+utimes					     c_int
+utmpname				     c_int
+utmpxname				     c_int
+vfork				     pid_t
+vhangup					     c_int
+vmsplice				     ssize_t
+wait					     pid_t
+wait4					     pid_t
+waitid					     c_int
+waitpid					     pid_t
+wcslen					     size_t
+wcstombs				     size_t
+wmemchr					     *mut wchar_t
+write					     ssize_t
+writev				     ssize_t

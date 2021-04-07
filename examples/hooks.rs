@@ -5,12 +5,10 @@ fn main() {
     fn cat() {
         Command::new("cat")
             .arg("Cargo.toml")
-            .add_hook(Hook::open(stringify!(|path, flags| {
-                use std::ffi::CString;
-                use std::mem::ManuallyDrop;
+            .add_hook(Hook::open(stringify!(|| {
                 let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
                 dbg!(&path_name);
-                original_open(path, flags)
+                None
             })))
             .set_hooks()
             .unwrap()
@@ -24,11 +22,11 @@ fn main() {
     fn ls() {
         Command::new("ls")
             .arg("-l")
-            .add_hook(Hook::opendir(stringify!(|dirname| {
-                dbg!(&std::mem::ManuallyDrop::new(std::ffi::CString::from_raw(
+            .add_hook(Hook::opendir(stringify!(|| {
+                dbg!(&ManuallyDrop::new(CString::from_raw(
                     dirname as _
                 )));
-                original_opendir(dirname)
+                None
             })))
             .set_hooks()
             .unwrap()
@@ -41,9 +39,9 @@ fn main() {
     // limit bandwidth
     fn speedtest() {
         Command::new("speedtest")
-            .add_hook(Hook::recv(stringify!(|socket, buf, len, flags| {
+            .add_hook(Hook::recv(stringify!(|| {
                 std::thread::sleep(std::time::Duration::from_millis(180));
-                original_recv(socket, buf, len, flags)
+                None
             })))
             .set_hooks()
             .unwrap()
@@ -59,22 +57,19 @@ fn main() {
         Command::new("cat")
             .arg("Cargo.toml")
             .add_hooks(vec![
-                Hook::read(stringify!(|fd, buf, count| {
-                    use std::mem::ManuallyDrop;
+                Hook::read(stringify!(|| {
                     let mut b = vec![0; count];
                     let n = original_read(fd, b.as_mut_ptr() as _, count);
                     let mut buf: ManuallyDrop<&mut [u8]> =
                         ManuallyDrop::new(transmute(std::slice::from_raw_parts_mut(buf, count)));
 
                     *buf = &mut b"hello world qsdsds sqd qsqsdsq qs dqsd q".to_vec();
-                    n as isize
+                    Some(n as isize)
                 })),
-                Hook::open(stringify!(|path, flags| {
-                    use std::ffi::CString;
-                    use std::mem::ManuallyDrop;
+                Hook::open(stringify!(|| {
                     let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
                     dbg!(&path_name);
-                    original_open(path, flags)
+                    None
                 })),
             ])
             .set_hooks()

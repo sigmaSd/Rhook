@@ -39,9 +39,9 @@
 //!```rust
 //!use rhook::{RunHook, Hook};
 //!
-//!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(|sockfd, buf, len, flags|{
-//!  std::thread::sleep_ms(10);
-//!  original_recv(sockfd, buf, len, flags)
+//!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
+//!  std::thread::sleep(std::time::Duration::from_millis(10));
+//!  Some(original_recv(socket, buf, len, flags))
 //!}))).set_hooks().unwrap().spawn();
 //!```
 //!

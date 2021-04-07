@@ -4,17 +4,17 @@ pub unsafe extern "C" fn CMSG_LEN(length: c_uint) -> c_uint
 pub unsafe extern "C" fn CMSG_NXTHDR(    mhdr: *const msghdr,     cmsg: *const cmsghdr) -> *mut cmsghdr
 pub unsafe extern "C" fn CMSG_SPACE(length: c_uint) -> c_uint
 pub unsafe extern "C" fn CPU_ALLOC_SIZE(count: c_int) -> size_t
-pub unsafe extern "C" fn CPU_CLR(cpu: usize, cpuset: &mut cpu_set_t)
+pub unsafe extern "C" fn CPU_CLR(cpu: usize, cpuset: &mut cpu_set_t)->()
 pub unsafe extern "C" fn CPU_COUNT(cpuset: &cpu_set_t) -> c_int
 pub unsafe extern "C" fn CPU_COUNT_S(size: usize, cpuset: &cpu_set_t) -> c_int
 pub unsafe extern "C" fn CPU_EQUAL(set1: &cpu_set_t, set2: &cpu_set_t) -> bool
 pub unsafe extern "C" fn CPU_ISSET(cpu: usize, cpuset: &cpu_set_t) -> bool
-pub unsafe extern "C" fn CPU_SET(cpu: usize, cpuset: &mut cpu_set_t)
-pub unsafe extern "C" fn CPU_ZERO(cpuset: &mut cpu_set_t)
-pub unsafe extern "C" fn FD_CLR(fd: c_int, set: *mut fd_set)
+pub unsafe extern "C" fn CPU_SET(cpu: usize, cpuset: &mut cpu_set_t)->()
+pub unsafe extern "C" fn CPU_ZERO(cpuset: &mut cpu_set_t)->()
+pub unsafe extern "C" fn FD_CLR(fd: c_int, set: *mut fd_set)->()
 pub unsafe extern "C" fn FD_ISSET(fd: c_int, set: *mut fd_set) -> bool
-pub unsafe extern "C" fn FD_SET(fd: c_int, set: *mut fd_set)
-pub unsafe extern "C" fn FD_ZERO(set: *mut fd_set)
+pub unsafe extern "C" fn FD_SET(fd: c_int, set: *mut fd_set)->()
+pub unsafe extern "C" fn FD_ZERO(set: *mut fd_set)->()
 pub extern "C" fn IPOPT_CLASS(o: u8) -> u8
 pub extern "C" fn IPOPT_COPIED(o: u8) -> u8
 pub extern "C" fn IPOPT_NUMBER(o: u8) -> u8
@@ -65,7 +65,7 @@ pub unsafe extern "C" fn bsearch(    key: *const c_void,     base: *cons
 pub unsafe extern "C" fn calloc(nobj: size_t, size: size_t) -> *mut c_void
 pub unsafe extern "C" fn cfgetispeed(termios: *const termios) -> speed_t
 pub unsafe extern "C" fn cfgetospeed(termios: *const termios) -> speed_t
-pub unsafe extern "C" fn cfmakeraw(termios: *mut termios)
+pub unsafe extern "C" fn cfmakeraw(termios: *mut termios)->()
 pub unsafe extern "C" fn cfsetispeed(    termios: *mut termios,     speed: speed_t) -> c_int
 pub unsafe extern "C" fn cfsetospeed(    termios: *mut termios,     speed: speed_t) -> c_int
 pub unsafe extern "C" fn cfsetspeed(    termios: *mut termios,     speed: speed_t) -> c_int
@@ -74,7 +74,7 @@ pub unsafe extern "C" fn chmod(path: *const c_char, mode: mode_t) -> c_int
 pub unsafe extern "C" fn chown(    path: *const c_char,     uid: uid_t,     gid: gid_t) -> c_int
 pub unsafe extern "C" fn chroot(name: *const c_char) -> c_int
 pub unsafe extern "C" fn clearenv() -> c_int
-pub unsafe extern "C" fn clearerr(stream: *mut FILE)
+pub unsafe extern "C" fn clearerr(stream: *mut FILE)->()
 pub unsafe extern "C" fn clock_getcpuclockid(    pid: pid_t,     clk_id: *mut clockid_t) -> c_int
 pub unsafe extern "C" fn clock_getres(    clk_id: clockid_t,     tp: *mut timespec) -> c_int
 pub unsafe extern "C" fn clock_gettime(    clk_id: clockid_t,     tp: *mut timespec) -> c_int
@@ -83,7 +83,7 @@ pub unsafe extern "C" fn clock_settime(    clk_id: clockid_t,     tp: *c
 pub unsafe extern "C" fn clone(    cb: extern "C" fn(_: *mut c_void) -> c_int,     child_stack: *mut c_void,     flags: c_int,     arg: *mut c_void,     ...) -> c_int
 pub unsafe extern "C" fn close(fd: c_int) -> c_int
 pub unsafe extern "C" fn closedir(dirp: *mut DIR) -> c_int
-pub unsafe extern "C" fn closelog()
+pub unsafe extern "C" fn closelog()->()
 pub unsafe extern "C" fn connect(    socket: c_int,     address: *const sockaddr,     len: socklen_t) -> c_int
 pub unsafe extern "C" fn copy_file_range(    fd_in: c_int,     off_in: *mut off64_t,     fd_out: c_int,     off_out: *mut off64_t,     len: size_t,     flags: c_uint) -> ssize_t
 pub unsafe extern "C" fn creat(path: *const c_char, mode: mode_t) -> c_int
@@ -103,12 +103,12 @@ pub unsafe extern "C" fn dup(fd: c_int) -> c_int
 pub unsafe extern "C" fn dup2(src: c_int, dst: c_int) -> c_int
 pub unsafe extern "C" fn dup3(oldfd: c_int, newfd: c_int, flags: c_int) -> c_int
 pub unsafe extern "C" fn duplocale(base: locale_t) -> locale_t
-pub unsafe extern "C" fn endgrent()
+pub unsafe extern "C" fn endgrent()->()
 pub unsafe extern "C" fn endmntent(streamp: *mut FILE) -> c_int
-pub unsafe extern "C" fn endpwent()
-pub unsafe extern "C" fn endservent()
-pub unsafe extern "C" fn endspent()
-pub unsafe extern "C" fn endutxent()
+pub unsafe extern "C" fn endpwent()->()
+pub unsafe extern "C" fn endservent()->()
+pub unsafe extern "C" fn endspent()->()
+pub unsafe extern "C" fn endutxent()->()
 pub unsafe extern "C" fn epoll_create(size: c_int) -> c_int
 pub unsafe extern "C" fn epoll_create1(flags: c_int) -> c_int
 pub unsafe extern "C" fn epoll_ctl(    epfd: c_int,     op: c_int,     fd: c_int,     event: *mut epoll_event) -> c_int
@@ -162,10 +162,10 @@ pub unsafe extern "C" fn fputc(c: c_int, stream: *mut FILE) -> c_int
 pub unsafe extern "C" fn fputs(s: *const c_char, stream: *mut FILE) -> c_int
 pub unsafe extern "C" fn fread(    ptr: *mut c_void,     size: size_t,     nobj: size_t,     stream: *mut FILE) -> size_t
 pub unsafe extern "C" fn fread_unlocked(    ptr: *mut c_void,     size: size_t,     nobj: size_t,     stream: *mut FILE) -> size_t
-pub unsafe extern "C" fn free(p: *mut c_void)
-pub unsafe extern "C" fn freeaddrinfo(res: *mut addrinfo)
-pub unsafe extern "C" fn freeifaddrs(ifa: *mut ifaddrs)
-pub unsafe extern "C" fn freelocale(loc: locale_t)
+pub unsafe extern "C" fn free(p: *mut c_void)->()
+pub unsafe extern "C" fn freeaddrinfo(res: *mut addrinfo)->()
+pub unsafe extern "C" fn freeifaddrs(ifa: *mut ifaddrs)->()
+pub unsafe extern "C" fn freelocale(loc: locale_t)->()
 pub unsafe extern "C" fn fremovexattr(    filedes: c_int,     name: *const c_char) -> c_int
 pub unsafe extern "C" fn freopen(    filename: *const c_char,     mode: *const c_char,     file: *mut FILE) -> *mut FILE
 pub unsafe extern "C" fn freopen64(    filename: *const c_char,     mode: *const c_char,     file: *mut FILE) -> *mut FILE
@@ -263,8 +263,8 @@ pub unsafe extern "C" fn getutxline(ut: *const utmpx) -> *mut utmpx
 pub unsafe extern "C" fn getxattr(    path: *const c_char,     name: *const c_char,     value: *mut c_void,     size: size_t) -> ssize_t
 pub unsafe extern "C" fn glob(    pattern: *const c_char,     flags: c_int,     errfunc: Option<extern "C" fn(epath: *const c_char, errno: c_int) -> c_int>,     pglob: *mut glob_t) -> c_int
 pub unsafe extern "C" fn glob64(    pattern: *const c_char,     flags: c_int,     errfunc: Option<extern "C" fn(epath: *const c_char, errno: c_int) -> c_int>,     pglob: *mut glob64_t) -> c_int
-pub unsafe extern "C" fn globfree(pglob: *mut glob_t)
-pub unsafe extern "C" fn globfree64(pglob: *mut glob64_t)
+pub unsafe extern "C" fn globfree(pglob: *mut glob_t)->()
+pub unsafe extern "C" fn globfree64(pglob: *mut glob64_t)->()
 pub unsafe extern "C" fn gmtime(time_p: *const time_t) -> *mut tm
 pub unsafe extern "C" fn gmtime_r(    time_p: *const time_t,     result: *mut tm) -> *mut tm
 pub unsafe extern "C" fn grantpt(fd: c_int) -> c_int
@@ -272,7 +272,7 @@ pub unsafe extern "C" fn hasmntopt(    mnt: *const mntent,     opt: *con
 pub unsafe extern "C" fn iconv(    cd: iconv_t,     inbuf: *mut *mut c_char,     inbytesleft: *mut size_t,     outbuf: *mut *mut c_char,     outbytesleft: *mut size_t) -> size_t
 pub unsafe extern "C" fn iconv_close(cd: iconv_t) -> c_int
 pub unsafe extern "C" fn iconv_open(    tocode: *const c_char,     fromcode: *const c_char) -> iconv_t
-pub unsafe extern "C" fn if_freenameindex(ptr: *mut if_nameindex)
+pub unsafe extern "C" fn if_freenameindex(ptr: *mut if_nameindex)->()
 pub unsafe extern "C" fn if_indextoname(    ifindex: c_uint,     ifname: *mut c_char) -> *mut c_char
 pub unsafe extern "C" fn if_nameindex() -> *mut if_nameindex
 pub unsafe extern "C" fn if_nametoindex(ifname: *const c_char) -> c_uint
@@ -322,7 +322,7 @@ pub unsafe extern "C" fn lstat64(path: *const c_char, buf: *mut stat64) -> c_int
 pub unsafe extern "C" fn lutimes(    file: *const c_char,     times: *const timeval) -> c_int
 pub unsafe extern "C" fn madvise(    addr: *mut c_void,     len: size_t,     advice: c_int) -> c_int
 pub unsafe extern "C" fn major(dev: dev_t) -> c_uint
-pub unsafe extern "C" fn makecontext(    ucp: *mut ucontext_t,     func: extern "C" fn(),     argc: c_int,     ...)
+pub unsafe extern "C" fn makecontext(    ucp: *mut ucontext_t,     func: extern "C" fn(),     argc: c_int,     ...)->()
 pub unsafe extern "C" fn makedev(major: c_uint, minor: c_uint) -> dev_t
 pub unsafe extern "C" fn mallinfo() -> mallinfo
 pub unsafe extern "C" fn malloc(size: size_t) -> *mut c_void
@@ -388,12 +388,12 @@ pub unsafe extern "C" fn open_wmemstream(    ptr: *mut *mut wchar_t,    �
 pub unsafe extern "C" fn openat(    dirfd: c_int,     pathname: *const c_char,     flags: c_int,     ...) -> c_int
 pub unsafe extern "C" fn openat64(    fd: c_int,     path: *const c_char,     oflag: c_int,     ...) -> c_int
 pub unsafe extern "C" fn opendir(dirname: *const c_char) -> *mut DIR
-pub unsafe extern "C" fn openlog(    ident: *const c_char,     logopt: c_int,     facility: c_int)
+pub unsafe extern "C" fn openlog(    ident: *const c_char,     logopt: c_int,     facility: c_int)->()
 pub unsafe extern "C" fn openpty(    amaster: *mut c_int,     aslave: *mut c_int,     name: *mut c_char,     termp: *const termios,     winp: *const winsize) -> c_int
 pub unsafe extern "C" fn pathconf(path: *const c_char, name: c_int) -> c_long
 pub unsafe extern "C" fn pause() -> c_int
 pub unsafe extern "C" fn pclose(stream: *mut FILE) -> c_int
-pub unsafe extern "C" fn perror(s: *const c_char)
+pub unsafe extern "C" fn perror(s: *const c_char)->()
 pub unsafe extern "C" fn personality(persona: c_ulong) -> c_int
 pub unsafe extern "C" fn pipe(fds: *mut c_int) -> c_int
 pub unsafe extern "C" fn pipe2(fds: *mut c_int, flags: c_int) -> c_int
@@ -518,8 +518,8 @@ pub unsafe extern "C" fn pwrite64(    fd: c_int,     buf: *const c_void,
 pub unsafe extern "C" fn pwritev(    fd: c_int,     iov: *const iovec,     iovcnt: c_int,     offset: off_t) -> ssize_t
 pub unsafe extern "C" fn pwritev2(    fd: c_int,     iov: *const iovec,     iovcnt: c_int,     offset: off_t,     flags: c_int) -> ssize_t
 pub unsafe extern "C" fn pwritev64(    fd: c_int,     iov: *const iovec,     iovcnt: c_int,     offset: off64_t) -> ssize_t
-pub unsafe extern "C" fn qsort(    base: *mut c_void,     num: size_t,     size: size_t,     compar: Option<unsafe extern "C" fn(_: *const c_void, _: *const c_void) -> c_int>)
-pub unsafe extern "C" fn qsort_r(    base: *mut c_void,     num: size_t,     size: size_t,     compar: Option<unsafe extern "C" fn(_: *const c_void, _: *const c_void, _: *mut c_void) -> c_int>,     arg: *mut c_void)
+pub unsafe extern "C" fn qsort(    base: *mut c_void,     num: size_t,     size: size_t,     compar: Option<unsafe extern "C" fn(_: *const c_void, _: *const c_void) -> c_int>)->()
+pub unsafe extern "C" fn qsort_r(    base: *mut c_void,     num: size_t,     size: size_t,     compar: Option<unsafe extern "C" fn(_: *const c_void, _: *const c_void, _: *mut c_void) -> c_int>,     arg: *mut c_void)->()
 pub unsafe extern "C" fn quotactl(    cmd: c_int,     special: *const c_char,     id: c_int,     data: *mut c_char) -> c_int
 pub unsafe extern "C" fn raise(signum: c_int) -> c_int
 pub unsafe extern "C" fn rand() -> c_int
@@ -542,7 +542,7 @@ pub unsafe extern "C" fn recvmsg(    fd: c_int,     msg: *mut msghdr,  
 pub unsafe extern "C" fn regcomp(    preg: *mut regex_t,     pattern: *const c_char,     cflags: c_int) -> c_int
 pub unsafe extern "C" fn regerror(    errcode: c_int,     preg: *const regex_t,     errbuf: *mut c_char,     errbuf_size: size_t) -> size_t
 pub unsafe extern "C" fn regexec(    preg: *const regex_t,     input: *const c_char,     nmatch: size_t,     pmatch: *mut regmatch_t,     eflags: c_int) -> c_int
-pub unsafe extern "C" fn regfree(preg: *mut regex_t)
+pub unsafe extern "C" fn regfree(preg: *mut regex_t)->()
 pub unsafe extern "C" fn remap_file_pages(    addr: *mut c_void,     size: size_t,     prot: c_int,     pgoff: size_t,     flags: c_int) -> c_int
 pub unsafe extern "C" fn remove(filename: *const c_char) -> c_int
 pub unsafe extern "C" fn removexattr(    path: *const c_char,     name: *const c_char) -> c_int
@@ -550,8 +550,8 @@ pub unsafe extern "C" fn rename(    oldname: *const c_char,     newname:
 pub unsafe extern "C" fn renameat(    olddirfd: c_int,     oldpath: *const c_char,     newdirfd: c_int,     newpath: *const c_char) -> c_int
 pub unsafe extern "C" fn renameat2(    olddirfd: c_int,     oldpath: *const c_char,     newdirfd: c_int,     newpath: *const c_char,     flags: c_uint) -> c_int
 pub unsafe extern "C" fn res_init() -> c_int
-pub unsafe extern "C" fn rewind(stream: *mut FILE)
-pub unsafe extern "C" fn rewinddir(dirp: *mut DIR)
+pub unsafe extern "C" fn rewind(stream: *mut FILE)->()
+pub unsafe extern "C" fn rewinddir(dirp: *mut DIR)->()
 pub unsafe extern "C" fn rmdir(path: *const c_char) -> c_int
 pub unsafe extern "C" fn sbrk(increment: intptr_t) -> *mut c_void
 pub unsafe extern "C" fn scanf(format: *const c_char, ...) -> c_int
@@ -566,7 +566,7 @@ pub unsafe extern "C" fn sched_setaffinity(    pid: pid_t,     cpusetsiz
 pub unsafe extern "C" fn sched_setparam(    pid: pid_t,     param: *const sched_param) -> c_int
 pub unsafe extern "C" fn sched_setscheduler(    pid: pid_t,     policy: c_int,     param: *const sched_param) -> c_int
 pub unsafe extern "C" fn sched_yield() -> c_int
-pub unsafe extern "C" fn seekdir(dirp: *mut DIR, loc: c_long)
+pub unsafe extern "C" fn seekdir(dirp: *mut DIR, loc: c_long)->()
 pub unsafe extern "C" fn select(    nfds: c_int,     readfs: *mut fd_set,     writefds: *mut fd_set,     errorfds: *mut fd_set,     timeout: *mut timeval) -> c_int
 pub unsafe extern "C" fn sem_close(sem: *mut sem_t) -> c_int
 pub unsafe extern "C" fn sem_destroy(sem: *mut sem_t) -> c_int
@@ -587,7 +587,7 @@ pub unsafe extern "C" fn sendfile64(    out_fd: c_int,     in_fd: c_int,
 pub unsafe extern "C" fn sendmmsg(    sockfd: c_int,     msgvec: *mut mmsghdr,     vlen: c_uint,     flags: c_int) -> c_int
 pub unsafe extern "C" fn sendmsg(    fd: c_int,     msg: *const msghdr,     flags: c_int) -> ssize_t
 pub unsafe extern "C" fn sendto(    socket: c_int,     buf: *const c_void,     len: size_t,     flags: c_int,     addr: *const sockaddr,     addrlen: socklen_t) -> ssize_t
-pub unsafe extern "C" fn setbuf(stream: *mut FILE, buf: *mut c_char)
+pub unsafe extern "C" fn setbuf(stream: *mut FILE, buf: *mut c_char)->()
 pub unsafe extern "C" fn setcontext(ucp: *const ucontext_t) -> c_int
 pub unsafe extern "C" fn setdomainname(    name: *const c_char,     len: size_t) -> c_int
 pub unsafe extern "C" fn setegid(gid: gid_t) -> c_int
@@ -596,7 +596,7 @@ pub unsafe extern "C" fn seteuid(uid: uid_t) -> c_int
 pub unsafe extern "C" fn setfsgid(gid: gid_t) -> c_int
 pub unsafe extern "C" fn setfsuid(uid: uid_t) -> c_int
 pub unsafe extern "C" fn setgid(gid: gid_t) -> c_int
-pub unsafe extern "C" fn setgrent()
+pub unsafe extern "C" fn setgrent()->()
 pub unsafe extern "C" fn setgroups(ngroups: size_t, ptr: *const gid_t) -> c_int
 pub unsafe extern "C" fn sethostname(name: *const c_char, len: size_t) -> c_int
 pub unsafe extern "C" fn setlocale(    category: c_int,     locale: *const c_char) -> *mut c_char
@@ -605,20 +605,20 @@ pub unsafe extern "C" fn setmntent(    filename: *const c_char,     ty: 
 pub unsafe extern "C" fn setns(fd: c_int, nstype: c_int) -> c_int
 pub unsafe extern "C" fn setpgid(pid: pid_t, pgid: pid_t) -> c_int
 pub unsafe extern "C" fn setpriority(    which: __priority_which_t,     who: id_t,     prio: c_int) -> c_int
-pub unsafe extern "C" fn setpwent()
+pub unsafe extern "C" fn setpwent()->()
 pub unsafe extern "C" fn setregid(rgid: gid_t, egid: gid_t) -> c_int
 pub unsafe extern "C" fn setresgid(    rgid: gid_t,     egid: gid_t,     sgid: gid_t) -> c_int
 pub unsafe extern "C" fn setresuid(    ruid: uid_t,     euid: uid_t,     suid: uid_t) -> c_int
 pub unsafe extern "C" fn setreuid(ruid: uid_t, euid: uid_t) -> c_int
 pub unsafe extern "C" fn setrlimit(    resource: __rlimit_resource_t,     rlim: *const rlimit) -> c_int
 pub unsafe extern "C" fn setrlimit64(    resource: __rlimit_resource_t,     rlim: *const rlimit64) -> c_int
-pub unsafe extern "C" fn setservent(stayopen: c_int)
+pub unsafe extern "C" fn setservent(stayopen: c_int)->()
 pub unsafe extern "C" fn setsid() -> pid_t
 pub unsafe extern "C" fn setsockopt(    socket: c_int,     level: c_int,     name: c_int,     value: *const c_void,     option_len: socklen_t) -> c_int
-pub unsafe extern "C" fn setspent()
+pub unsafe extern "C" fn setspent()->()
 pub unsafe extern "C" fn settimeofday(    tv: *const timeval,     tz: *const timezone) -> c_int
 pub unsafe extern "C" fn setuid(uid: uid_t) -> c_int
-pub unsafe extern "C" fn setutxent()
+pub unsafe extern "C" fn setutxent()->()
 pub unsafe extern "C" fn setvbuf(    stream: *mut FILE,     buffer: *mut c_char,     mode: c_int,     size: size_t) -> c_int
 pub unsafe extern "C" fn setxattr(    path: *const c_char,     name: *const c_char,     value: *const c_void,     size: size_t,     flags: c_int) -> c_int
 pub unsafe extern "C" fn sgetspent_r(    s: *const c_char,     spbuf: *mut spwd,     buf: *mut c_char,     buflen: size_t,     spbufp: *mut *mut spwd) -> c_int
@@ -650,7 +650,7 @@ pub unsafe extern "C" fn socket(    domain: c_int,     ty: c_int,    
 pub unsafe extern "C" fn socketpair(    domain: c_int,     type_: c_int,     protocol: c_int,     socket_vector: *mut c_int) -> c_int
 pub unsafe extern "C" fn splice(    fd_in: c_int,     off_in: *mut loff_t,     fd_out: c_int,     off_out: *mut loff_t,     len: size_t,     flags: c_uint) -> ssize_t
 pub unsafe extern "C" fn sprintf(    s: *mut c_char,     format: *const c_char,     ...) -> c_int
-pub unsafe extern "C" fn srand(seed: c_uint)
+pub unsafe extern "C" fn srand(seed: c_uint)->()
 pub unsafe extern "C" fn sscanf(    s: *const c_char,     format: *const c_char,     ...) -> c_int
 pub unsafe extern "C" fn stat(path: *const c_char, buf: *mut stat) -> c_int
 pub unsafe extern "C" fn stat64(path: *const c_char, buf: *mut stat64) -> c_int
@@ -692,13 +692,13 @@ pub unsafe extern "C" fn swapoff(path: *const c_char) -> c_int
 pub unsafe extern "C" fn swapon(path: *const c_char, swapflags: c_int) -> c_int
 pub unsafe extern "C" fn symlink(    path1: *const c_char,     path2: *const c_char) -> c_int
 pub unsafe extern "C" fn symlinkat(    target: *const c_char,     newdirfd: c_int,     linkpath: *const c_char) -> c_int
-pub unsafe extern "C" fn sync()
+pub unsafe extern "C" fn sync()->()
 pub unsafe extern "C" fn sync_file_range(    fd: c_int,     offset: off64_t,     nbytes: off64_t,     flags: c_uint) -> c_int
 pub unsafe extern "C" fn syscall(num: c_long, ...) -> c_long
 pub unsafe extern "C" fn sysconf(name: c_int) -> c_long
 pub unsafe extern "C" fn sysctl(    name: *mut c_int,     namelen: c_int,     oldp: *mut c_void,     oldlenp: *mut size_t,     newp: *mut c_void,     newlen: size_t) -> c_int
 pub unsafe extern "C" fn sysinfo(info: *mut sysinfo) -> c_int
-pub unsafe extern "C" fn syslog(priority: c_int, message: *const c_char, ...)
+pub unsafe extern "C" fn syslog(priority: c_int, message: *const c_char, ...)->()
 pub unsafe extern "C" fn system(s: *const c_char) -> c_int
 pub unsafe extern "C" fn tcdrain(fd: c_int) -> c_int
 pub unsafe extern "C" fn tcflow(fd: c_int, action: c_int) -> c_int
