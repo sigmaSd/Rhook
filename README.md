@@ -23,7 +23,7 @@ The closure used for hooks have acess to many things: (imported by https://githu
 - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 
-
+You can find the input/output of a function by looking it up here https://docs.rs/libc
 
 ### Example
 
@@ -35,16 +35,16 @@ So our goal is to throttle it with a simple sleep
 
 To do that with this crate: (taking speedtest program as an example)
 
-1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what is the
+1- Look up its docs https://docs.rs/libc/0.2.93/libc/fn.recvmsg.html to see what is the
 function's input/output
 
 2- use this crate
 ```rust
 use rhook::{RunHook, Hook};
 
-std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(|sockfd, buf, len, flags|{
- std::thread::sleep_ms(10);
- original_recv(sockfd, buf, len, flags)
+std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
+ std::thread::sleep(std::time::Duration::from_millis(10));
+ Some(original_recv(socket, buf, len, flags))
 }))).set_hooks().unwrap().spawn();
 ```
 
