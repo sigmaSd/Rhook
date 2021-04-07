@@ -125,7 +125,7 @@ impl RunHook for Command {
                     append(libcfn::recv(fun))?;
                 }
                 Hook::RecvMsg(fun) => {
-                    append(libcfn::recv_msg(fun))?;
+                    append(libcfn::recvmsg(fun))?;
                 }
                 Hook::Read(fun) => {
                     append(libcfn::read(fun))?;
