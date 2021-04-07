@@ -6,12 +6,12 @@ fn fake_cat() {
     Command::new("cat")
         .arg("Cargo.toml")
         .add_hooks(vec![
-            Hook::Read(stringify!(|fd, buf, count| {
+            Hook::read(stringify!(|_fd, buf, count| {
                 let buf = buf as *mut u8;
                 use std::io::Write;
                 let mut buf = ManuallyDrop::new(std::slice::from_raw_parts_mut(buf, count));
                 let msg = b"hello world";
-                buf.write_all(msg);
+                buf.write_all(msg).unwrap();
                 COUNTER += 1;
                 if COUNTER % 2 != 0 {
                     msg.len() as isize
@@ -19,8 +19,9 @@ fn fake_cat() {
                     0
                 }
             })),
-            Hook::Open(stringify!(|path, flags| {
+            Hook::open(stringify!(|path, flags| {
                 let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
+                dbg!(&path_name);
                 original_open(path, flags)
             })),
         ])

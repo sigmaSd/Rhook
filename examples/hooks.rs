@@ -5,7 +5,7 @@ fn main() {
     fn cat() {
         Command::new("cat")
             .arg("Cargo.toml")
-            .add_hook(Hook::Open(stringify!(|path, flags| {
+            .add_hook(Hook::open(stringify!(|path, flags| {
                 use std::ffi::CString;
                 use std::mem::ManuallyDrop;
                 let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
@@ -24,7 +24,7 @@ fn main() {
     fn ls() {
         Command::new("ls")
             .arg("-l")
-            .add_hook(Hook::OpenDir(stringify!(|dirname| {
+            .add_hook(Hook::opendir(stringify!(|dirname| {
                 dbg!(&std::mem::ManuallyDrop::new(std::ffi::CString::from_raw(
                     dirname as _
                 )));
@@ -41,7 +41,7 @@ fn main() {
     // limit bandwidth
     fn speedtest() {
         Command::new("speedtest")
-            .add_hook(Hook::Recv(stringify!(|socket, buf, len, flags| {
+            .add_hook(Hook::recv(stringify!(|socket, buf, len, flags| {
                 std::thread::sleep(std::time::Duration::from_millis(180));
                 original_recv(socket, buf, len, flags)
             })))
@@ -59,7 +59,7 @@ fn main() {
         Command::new("cat")
             .arg("Cargo.toml")
             .add_hooks(vec![
-                Hook::Read(stringify!(|fd, buf, count| {
+                Hook::read(stringify!(|fd, buf, count| {
                     use std::mem::ManuallyDrop;
                     let mut b = vec![0; count];
                     let n = original_read(fd, b.as_mut_ptr() as _, count);
@@ -69,7 +69,7 @@ fn main() {
                     *buf = &mut b"hello world qsdsds sqd qsqsdsq qs dqsd q".to_vec();
                     n as isize
                 })),
-                Hook::Open(stringify!(|path, flags| {
+                Hook::open(stringify!(|path, flags| {
                     use std::ffi::CString;
                     use std::mem::ManuallyDrop;
                     let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));

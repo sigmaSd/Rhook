@@ -39,7 +39,7 @@
 //!```rust
 //!use rhook::{RunHook, Hook};
 //!
-//!std::process::Command::new("speedtest").add_hook(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
+//!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(|sockfd, buf, len, flags|{
 //!  std::thread::sleep_ms(10);
 //!  original_recv(sockfd, buf, len, flags)
 //!}))).set_hooks().unwrap().spawn();
@@ -58,7 +58,7 @@
 #[cfg(not(unix))]
 compile_error!("This crate is unix only");
 
-mod libcfn;
+pub(crate) mod libcfn;
 use std::{
     collections::HashSet,
     io::{self, Write},
@@ -67,29 +67,13 @@ use std::{
 
 use once_cell::sync::Lazy;
 use std::process::{Command, Stdio};
-
-//type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 use std::io::Result;
 
 static HOOKS: Lazy<Mutex<HashSet<Hook>>> = Lazy::new(|| Mutex::new(HashSet::new()));
 
-/// libc hooks enum
-#[non_exhaustive]
-#[derive(Hash, Eq, PartialEq)]
-pub enum Hook {
-    /// fn open(path: *const c_char, oflags: c_int) -> Option<c_int>,
-    Open(&'static str),
-    /// fn opendir(dirname: *const c_char) -> *mut DIR
-    OpenDir(&'static str),
-    /// fn recv( socket: c_int, buf: *mut c_void, len: size_t, flags: c_int,) -> ssize_t
-    Recv(&'static str),
-    /// fn recvmsg( fd: c_int, msg: *mut msghdr, flags: c_int) -> ssize_t
-    RecvMsg(&'static str),
-    /// fn read( fd: c_int, buf: *mut c_void, count: size_t) -> ssize_t
-    Read(&'static str),
-    /// fn getenv(s: *const c_char) -> *mut c_char
-    GetEnv(&'static str),
-}
+
+mod hook;
+pub use hook::Hook;
 
 /// Specify libc hooks for a Command
 pub trait RunHook {
@@ -114,26 +98,7 @@ impl RunHook for Command {
     fn set_hooks(&mut self) -> Result<&mut Self> {
         prepare()?;
         for hook in HOOKS.lock().expect("There is only one thread").drain() {
-            match hook {
-                Hook::Open(fun) => {
-                    append(libcfn::open(fun))?;
-                }
-                Hook::OpenDir(fun) => {
-                    append(libcfn::opendir(fun))?;
-                }
-                Hook::Recv(fun) => {
-                    append(libcfn::recv(fun))?;
-                }
-                Hook::RecvMsg(fun) => {
-                    append(libcfn::recvmsg(fun))?;
-                }
-                Hook::Read(fun) => {
-                    append(libcfn::read(fun))?;
-                }
-                Hook::GetEnv(fun) => {
-                    append(libcfn::getenv(fun))?;
-                }
-            }
+            append(hook.function())?;
         }
         build_dylib()?;
 

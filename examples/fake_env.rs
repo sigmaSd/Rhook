@@ -4,12 +4,11 @@ use std::process::Command;
 fn fake_env() {
     Command::new("ls")
         .arg("-l")
-        .add_hook(Hook::GetEnv(stringify!(|envp| {
+        .add_hook(Hook::getenv(stringify!(|envp| {
             use std::mem::ManuallyDrop;
             let env = ManuallyDrop::new(std::ffi::CString::from_raw(envp as _));
             dbg!(&env);
             if env.to_str() == Ok("QUOTING_STYLE") {
-                return original_getenv(envp);
                 std::ffi::CString::new("literal").unwrap().into_raw()
             } else if env.to_str() == Ok("TIME_STYLE") {
                 std::ffi::CString::new("locale").unwrap().into_raw()
