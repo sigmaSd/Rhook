@@ -21,6 +21,7 @@
 //! - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 //! - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 //!
+//!You can find the input/output of a function by looking it up here https://docs.rs/libc
 //!
 //!## Example
 //!
@@ -32,8 +33,8 @@
 //!
 //!To do that with this crate: (taking speedtest program as an example)
 //!
-//!1- Check its manpage https://man7.org/linux/man-pages/man2/recv.2.html to see what the
-//!function's input/output
+//!1- Look up its doc's here  https://docs.rs/libc to see what the
+//!function's input/output is
 //!
 //!2- use this crate
 //!```rust
