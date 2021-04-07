@@ -1,5 +1,3 @@
-//!# Rhook
-//!
 //!Hook libc functions with an easy API
 //!
 //!## Usage
@@ -9,6 +7,14 @@
 //!2- Create an [Command](std::process::Command) with [Command::new](std::process::Command::new) and add hooks to it via [add_hook](RunHook::add_hook) and [add_hooks](RunHook::add_hooks) methods
 //!
 //!3- Confirm the hooks with [set_hooks](RunHook::set_hooks) method this step is necessary
+//!
+//!3.1- Hooks are closures that takes no input and return an option of the libc function as output. 
+//!
+//! If the closure return `None` that is equivalent to returning `Some(original_function(args))` in
+//! other words it will run and use the original function output
+//!
+//! Inside the closure you have access to the libc function input + some imports from std (see
+//! src/scaffold.rs)
 //!
 //!4- Now you can carry on with the usual [Command](std::process::Command) methods ([output](std::process::Command::output), [spawn](std::process::Command::spawn),[status](std::process::Command::status),..)
 //!
@@ -21,7 +27,7 @@
 //! - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 //! - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 //!
-//!You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
+//! - You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
 //!
 //!## Example
 //!
