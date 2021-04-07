@@ -23,9 +23,7 @@ fn main() {
         Command::new("ls")
             .arg("-l")
             .add_hook(Hook::opendir(stringify!(|| {
-                dbg!(&ManuallyDrop::new(CString::from_raw(
-                    dirname as _
-                )));
+                dbg!(&ManuallyDrop::new(CString::from_raw(dirname as _)));
                 None
             })))
             .set_hooks()

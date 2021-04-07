@@ -8,7 +8,7 @@
 //!
 //!3- Confirm the hooks with [set_hooks](RunHook::set_hooks) method this step is necessary
 //!
-//!3.1- Hooks are closures that takes no input and return an option of the libc function as output. 
+//!3.1- Hooks are closures that takes no input and return an option of the libc function as output.
 //!
 //! If the closure return `None` that is equivalent to returning `Some(original_function(args))` in
 //! other words it will run and use the original function output
@@ -49,7 +49,7 @@
 //!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
 //!  std::thread::sleep(std::time::Duration::from_millis(10));
 //!  // since we're not doing any modification to the output you can just return None here
-//!  Some(original_recv(socket, buf, len, flags)) 
+//!  Some(original_recv(socket, buf, len, flags))
 //!}))).set_hooks().unwrap().spawn();
 //!```
 //!
@@ -74,11 +74,10 @@ use std::{
 };
 
 use once_cell::sync::Lazy;
-use std::process::{Command, Stdio};
 use std::io::Result;
+use std::process::{Command, Stdio};
 
 static HOOKS: Lazy<Mutex<HashSet<Hook>>> = Lazy::new(|| Mutex::new(HashSet::new()));
-
 
 mod hook;
 pub use hook::Hook;
