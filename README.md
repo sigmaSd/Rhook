@@ -35,7 +35,7 @@ So our goal is to throttle it with a simple sleep
 
 To do that with this crate: (taking speedtest program as an example)
 
-1- Look up its docs https://docs.rs/libc/0.2.93/libc/fn.recvmsg.html to see what is the
+1- Look up its docs https://docs.rs/libc/0.2.93/libc/fn.recv.html to see what is the
 function's input/output
 
 2- use this crate
@@ -44,7 +44,7 @@ use rhook::{RunHook, Hook};
 
 std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
  std::thread::sleep(std::time::Duration::from_millis(10));
- Some(original_recv(socket, buf, len, flags))
+ Some(original_recv(socket, buf, len, flags)) // since we're not doing any modification to the output you can just return None here
 }))).set_hooks().unwrap().spawn();
 ```
 

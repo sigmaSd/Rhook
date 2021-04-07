@@ -21,7 +21,7 @@
 //! - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 //! - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 //!
-//!You can find the input/output of a function by looking it up here https://docs.rs/libc
+//!You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
 //!
 //!## Example
 //!
@@ -33,7 +33,7 @@
 //!
 //!To do that with this crate: (taking speedtest program as an example)
 //!
-//!1- Look up its doc's here  https://docs.rs/libc to see what the
+//!1- Look up its doc's here  [recv](https://docs.rs/libc/0.2.93/libc/fn.recv.html) to see what the
 //!function's input/output is
 //!
 //!2- use this crate
@@ -42,7 +42,8 @@
 //!
 //!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
 //!  std::thread::sleep(std::time::Duration::from_millis(10));
-//!  Some(original_recv(socket, buf, len, flags))
+//!  // since we're not doing any modification to the output you can just return None here
+//!  Some(original_recv(socket, buf, len, flags)) 
 //!}))).set_hooks().unwrap().spawn();
 //!```
 //!
