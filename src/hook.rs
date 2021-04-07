@@ -3,7 +3,6 @@ use crate::libcfn;
 macro_rules! gen_hook_enum {
     ($($variant: ident)*) => (
         #[allow(non_camel_case_types)]
-        #[non_exhaustive]
         #[derive(Debug, Hash, Eq, PartialEq)]
         /// libc hooks enum
         pub enum Hook {
