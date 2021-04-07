@@ -42,7 +42,7 @@ function's input/output
 ```rust
 use rhook::{RunHook, Hook};
 
-std::process::Command::new("speedtest").add_hook(Hook::Recv(stringify!(|sockfd, buf, len, flags|{
+std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(|sockfd, buf, len, flags|{
  std::thread::sleep_ms(10);
  original_recv(sockfd, buf, len, flags)
 }))).set_hooks().unwrap().spawn();
