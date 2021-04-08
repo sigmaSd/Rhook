@@ -68,6 +68,7 @@ compile_error!("This crate is unix only");
 
 pub(crate) mod libcfn;
 use std::{
+    cell::RefCell,
     collections::HashSet,
     io::{self, Write},
     sync::Mutex,
@@ -77,7 +78,11 @@ use once_cell::sync::Lazy;
 use std::io::Result;
 use std::process::{Command, Stdio};
 
-static HOOKS: Lazy<Mutex<HashSet<Hook>>> = Lazy::new(|| Mutex::new(HashSet::new()));
+thread_local! {
+static HOOKS: RefCell<HashSet<Hook>> = RefCell::new(HashSet::new());
+}
+
+static RHOOK_DYNLIB_DIR_LOCK: Lazy<Mutex<()>> = Lazy::new(|| Mutex::new(()));
 
 mod hook;
 pub use hook::Hook;
@@ -86,7 +91,7 @@ pub use hook::Hook;
 pub trait RunHook {
     /// Add a libc hook to the command
     fn add_hook(&mut self, hook: Hook) -> &mut Self {
-        HOOKS.lock().expect("There is only one thread").insert(hook);
+        HOOKS.with(|hooks| hooks.borrow_mut().insert(hook));
         self
     }
     /// Add a Vec of libc hooks to the command
@@ -103,11 +108,21 @@ pub trait RunHook {
 
 impl RunHook for Command {
     fn set_hooks(&mut self) -> Result<&mut Self> {
+        //only one Command should do the next lines at a given time
+        //take lock here
+        let _lock = RHOOK_DYNLIB_DIR_LOCK.lock().expect("should not happen");
+
         prepare()?;
-        for hook in HOOKS.lock().expect("There is only one thread").drain() {
+
+        let mut drained_hooks = HashSet::new();
+        HOOKS.with(|hooks| drained_hooks = hooks.borrow_mut().drain().collect());
+        for hook in drained_hooks {
             append(hook.function())?;
         }
         build_dylib()?;
+
+        //drop lock here
+        drop(_lock);
 
         Ok(self.env("LD_PRELOAD", "/tmp/rhookdyl/target/debug/librhookdyl.so"))
     }

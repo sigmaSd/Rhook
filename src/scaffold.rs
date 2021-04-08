@@ -4,8 +4,11 @@
 #![allow(unused_imports)]
 
 use libc::*;
+use std::cell::RefCell;
 use std::ffi::CString;
 use std::mem::transmute;
 use std::mem::ManuallyDrop;
 
-static mut COUNTER: isize = 0;
+thread_local! {
+    static COUNTER: RefCell<isize> = RefCell::new(0);
+}
