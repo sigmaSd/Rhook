@@ -1,3 +1,7 @@
+**0.4.0**
+-  allow mutliple commands to set_hooks at the same time (including from different threads)
+- Scaffold: `COUNTER` variable is now thread local
+
 **0.3.0**
 - Add all libc functions
 - Rework API (see docs)
