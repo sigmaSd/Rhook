@@ -78,8 +78,9 @@ use once_cell::sync::Lazy;
 use std::io::Result;
 use std::process::{Command, Stdio};
 
+// each thread have its own copy of the hooks
 thread_local! {
-static HOOKS: RefCell<HashSet<Hook>> = RefCell::new(HashSet::new());
+    static HOOKS: RefCell<HashSet<Hook>> = RefCell::new(HashSet::new());
 }
 
 static RHOOK_DYNLIB_DIR_LOCK: Lazy<Mutex<()>> = Lazy::new(|| Mutex::new(()));
