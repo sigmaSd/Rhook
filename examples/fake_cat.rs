@@ -27,6 +27,7 @@ fn fake_cat() {
             })),
         ])
         .set_hooks()
+        .map_err(|e| println!("{}", e))
         .unwrap()
         .spawn()
         .unwrap()
