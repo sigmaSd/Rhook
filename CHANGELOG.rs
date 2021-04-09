@@ -1,3 +1,7 @@
+**0.5.0**
+- Hide compiling dynamic library stderr
+- COUNTER doesnt need to be thread local
+
 **0.4.0**
 -  allow mutliple commands to set_hooks at the same time (including from different threads)
 - Scaffold: `COUNTER` variable is now thread local
