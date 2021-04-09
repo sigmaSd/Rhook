@@ -12,9 +12,9 @@ fn fake_cat() {
                 let mut buf = ManuallyDrop::new(std::slice::from_raw_parts_mut(buf, count));
                 let msg = b"hello world";
                 buf.write_all(msg).unwrap();
-                COUNTER.with(|c| *c.borrow_mut() += 1);
+                COUNTER += 1;
 
-                if COUNTER.with(|c| *c.borrow() % 2 != 0) {
+                if COUNTER % 2 != 0 {
                     Some(msg.len() as isize)
                 } else {
                     Some(0)

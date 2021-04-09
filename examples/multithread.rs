@@ -14,9 +14,9 @@ fn multithread() {
                     let msg = $msg;
                     let msg = msg.as_bytes();
                     buf.write_all(msg).unwrap();
-                    COUNTER.with(|c| *c.borrow_mut() += 1);
+                    COUNTER += 1;
 
-                    if COUNTER.with(|c| *c.borrow() % 2 != 0) {
+                    if COUNTER % 2 != 0 {
                         Some(msg.len() as isize)
                     } else {
                         Some(0)
