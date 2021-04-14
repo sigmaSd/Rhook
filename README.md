@@ -28,8 +28,8 @@ The closure used for hooks have acess to many things: (imported by https://githu
 - closure output (which is the libc function output)
 - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
-
 - You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
+- Add `.map_err(|e|println("{}",e))` after `set_hooks` in order to prettify the dynamic library compiling error while debugging
 
 ### Example
 
