@@ -49,20 +49,24 @@ fn main() {
             .unwrap();
     }
 
-    // return fake data for read
-    // not yet working, still figuring this out
-    fn fake_cat() {
+    fn read_cat_data() {
         Command::new("cat")
             .arg("Cargo.toml")
             .add_hooks(vec![
                 Hook::read(stringify!(|| {
                     let mut b = vec![0; count];
                     let n = original_read(fd, b.as_mut_ptr() as _, count);
-                    let mut buf: ManuallyDrop<&mut [u8]> =
-                        ManuallyDrop::new(transmute(std::slice::from_raw_parts_mut(buf, count)));
 
-                    *buf = &mut b"hello world qsdsds sqd qsqsdsq qs dqsd q".to_vec();
-                    Some(n as isize)
+                    // read the data
+                    dbg!(String::from_utf8(b[..n as usize].to_vec()));
+
+                    // write the data back
+                    use std::io::Write;
+                    let buf = buf as *mut u8;
+                    let mut buf = ManuallyDrop::new(std::slice::from_raw_parts_mut(buf, count));
+                    buf.write_all(&b[..n as usize]).unwrap();
+
+                    Some(n)
                 })),
                 Hook::open(stringify!(|| {
                     let path_name = ManuallyDrop::new(CString::from_raw(path as *mut _));
@@ -71,6 +75,7 @@ fn main() {
                 })),
             ])
             .set_hooks()
+            .map_err(|e| println!("{}", e))
             .unwrap()
             .spawn()
             .unwrap()
@@ -79,7 +84,7 @@ fn main() {
     }
 
     cat();
-    fake_cat();
+    read_cat_data();
     ls();
     speedtest();
 }
