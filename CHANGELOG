@@ -1,3 +1,7 @@
+**0.8.0**
+- Make `Hook::function` private
+- Disable running doc test
+
 **0.7.0**
 - Manually implement `PartialEq` and `Hash` for `Hook` enum to guarantee the uniqueness of the hooks without taking the supplied closure into account
 
