@@ -1,3 +1,6 @@
+**0.7.0**
+- Manually implement `PartialEq` and `Hash` for `Hook` enum to guarantee the uniqueness of the hooks without taking the supplied closure into account
+
 **0.6.1**
 - Use 'static str for error
 
