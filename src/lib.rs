@@ -6,7 +6,7 @@
 //!
 //!2- Create an [Command](std::process::Command) with [Command::new](std::process::Command::new) and add hooks to it via [add_hook](RunHook::add_hook) and [add_hooks](RunHook::add_hooks) methods
 //!
-//!3- Confirm the hooks with (Anchor::set_hooks) method this step is necessary
+//!3- Confirm the hooks with [set_hooks](Anchor::set_hooks) method this step is necessary
 //!
 //!3.1- Hooks are closures that takes no input and return an option of the libc function as output.
 //!
