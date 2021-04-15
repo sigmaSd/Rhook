@@ -11,7 +11,7 @@ macro_rules! gen_hook_enum {
             $($variant(&'static str),)*
         }
         impl Hook {
-            pub fn function(&self, ) -> String {
+            pub(crate) fn function(&self, ) -> String {
                 match self {
                     $(Hook::$variant(fun) => libcfn::$variant(fun),)*
                 }
