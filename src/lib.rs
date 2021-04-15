@@ -6,7 +6,7 @@
 //!
 //!2- Create an [Command](std::process::Command) with [Command::new](std::process::Command::new) and add hooks to it via [add_hook](RunHook::add_hook) and [add_hooks](RunHook::add_hooks) methods
 //!
-//!3- Confirm the hooks with [set_hooks](RunHook::set_hooks) method this step is necessary
+//!3- Confirm the hooks with (Anchor::set_hooks) method this step is necessary
 //!
 //!3.1- Hooks are closures that takes no input and return an option of the libc function as output.
 //!
@@ -68,7 +68,6 @@ compile_error!("This crate is unix only");
 
 pub(crate) mod libcfn;
 use std::{
-    cell::RefCell,
     collections::HashSet,
     io::{self, Write},
     sync::Mutex,
@@ -79,46 +78,37 @@ use once_cell::sync::Lazy;
 use std::io::Result;
 use std::process::{Command, Stdio};
 
-// each thread have its own copy of the hooks
-thread_local! {
-    static HOOKS: RefCell<HashSet<Hook>> = RefCell::new(HashSet::new());
-}
-
+// synchronize dynamic library building between different threads
 static RHOOK_DYNLIB_DIR_LOCK: Lazy<Mutex<()>> = Lazy::new(|| Mutex::new(()));
 
 mod hook;
 pub use hook::Hook;
 
-/// Specify libc hooks for a Command
-pub trait RunHook {
-    /// Add a libc hook to the command
-    fn add_hook(&mut self, hook: Hook) -> &mut Self {
-        HOOKS.with(|hooks| hooks.borrow_mut().insert(hook));
-        self
-    }
-    /// Add a Vec of libc hooks to the command
-    fn add_hooks(&mut self, hooks: Vec<Hook>) -> &mut Self {
-        for hook in hooks {
-            self.add_hook(hook);
-        }
-        self
-    }
-    /// Set the hooks, this is a required method since it does the actual work of creating a
-    /// dynamic library and linking the target program with it
-    fn set_hooks(&mut self) -> Result<&mut Self>;
+/// The struct that holds the current command hooks
+///
+/// It is created by calling add_hook/add_hooks on Command
+///
+/// This struct guarantees by the type system that [Anchor::set_hooks] is called
+pub struct Anchor<'a> {
+    command: Option<&'a mut Command>,
+    hooks: Option<HashSet<Hook>>,
 }
 
-impl RunHook for Command {
-    fn set_hooks(&mut self) -> Result<&mut Self> {
+impl<'a> Anchor<'a> {
+    /// Set the hooks, this is a required method since it does the actual work of creating a
+    /// dynamic library and linking the target program with it
+    pub fn set_hooks(&mut self) -> Result<&mut Command> {
         //only one Command should do the next lines at a given time
         //take lock here
         let _lock = RHOOK_DYNLIB_DIR_LOCK.lock().expect("should not happen");
 
         prepare()?;
 
-        let mut drained_hooks = HashSet::new();
-        HOOKS.with(|hooks| drained_hooks = hooks.borrow_mut().drain().collect());
-        for hook in drained_hooks {
+        for hook in self
+            .hooks
+            .as_ref()
+            .expect(Self::FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION)
+        {
             append(hook.function())?;
         }
         build_dylib()?;
@@ -126,7 +116,74 @@ impl RunHook for Command {
         //drop lock here
         drop(_lock);
 
-        Ok(self.env("LD_PRELOAD", "/tmp/rhookdyl/target/debug/librhookdyl.so"))
+        Ok(self
+            .command
+            .take()
+            .expect(Self::FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION)
+            .env("LD_PRELOAD", "/tmp/rhookdyl/target/debug/librhookdyl.so"))
+    }
+
+    //-----------------
+    // private methods
+    //-----------------
+
+    fn new(command: &'a mut Command) -> Self {
+        Self {
+            command: Some(command),
+            hooks: Some(HashSet::new()),
+        }
+    }
+
+    fn insert_hook(&mut self, hook: Hook) {
+        self.hooks
+            .as_mut()
+            .expect(Self::FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION)
+            .insert(hook);
+    }
+
+    fn insert_hooks(&mut self, hooks: Vec<Hook>) {
+        hooks.into_iter().for_each(|hook| self.insert_hook(hook));
+    }
+
+    const FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION: &'a str = "Anchor can not be created outside of this library (its fields are private and the new method is also private), and we're guaranteeing internally that each time we construct an Anchor that its fields are set";
+}
+
+/// Specify libc hooks for a Command
+pub trait RunHook {
+    /// Add a libc hook to the command
+    fn add_hook(&mut self, hook: Hook) -> Anchor;
+    /// Add a Vec of libc hooks to the command
+    fn add_hooks(&mut self, hooks: Vec<Hook>) -> Anchor;
+}
+
+impl RunHook for Anchor<'_> {
+    fn add_hook(&mut self, hook: Hook) -> Anchor {
+        self.insert_hook(hook);
+        Self {
+            command: self.command.take(),
+            hooks: self.hooks.take(),
+        }
+    }
+
+    fn add_hooks(&mut self, hooks: Vec<Hook>) -> Anchor {
+        self.insert_hooks(hooks);
+        Self {
+            command: self.command.take(),
+            hooks: self.hooks.take(),
+        }
+    }
+}
+
+impl RunHook for Command {
+    fn add_hook(&mut self, hook: Hook) -> Anchor {
+        let mut anchor = Anchor::new(self);
+        anchor.insert_hook(hook);
+        anchor
+    }
+    fn add_hooks(&mut self, hooks: Vec<Hook>) -> Anchor {
+        let mut anchor = Anchor::new(self);
+        anchor.insert_hooks(hooks);
+        anchor
     }
 }
 
