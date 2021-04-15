@@ -1,3 +1,11 @@
+**0.6.1**
+- Use 'static str for error
+
+**0.6.0**
+-Add intermediate Anchor struct, This Anchor structs serves to guarantees by the type system that
+`set_hooks` is called after adding all the hooks and before executing the
+command.
+
 **0.5.0**
 - Hide compiling dynamic library stderr
 - COUNTER doesnt need to be thread local

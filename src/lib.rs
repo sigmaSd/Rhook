@@ -145,7 +145,7 @@ impl<'a> Anchor<'a> {
         hooks.into_iter().for_each(|hook| self.insert_hook(hook));
     }
 
-    const FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION: &'a str = "Anchor can not be created outside of this library (its fields are private and the new method is also private), and we're guaranteeing internally that each time we construct an Anchor that its fields are set";
+    const FIELDS_ARE_ALWAYS_NOT_NONE_JUSTIFICATION: &'static str = "Anchor can not be created outside of this library (its fields are private and the new method is also private), and we're guaranteeing internally that each time we construct an Anchor that its fields are set";
 }
 
 /// Specify libc hooks for a Command
