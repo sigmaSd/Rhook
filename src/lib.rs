@@ -28,6 +28,7 @@
 //! - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 //! - You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
 //! - Add `.map_err(|e|println("{}",e))` after `set_hooks` in order to prettify the dynamic library compiling error while debugging
+//! - If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so you don't free it
 //!
 //!## Example
 //!
@@ -56,10 +57,6 @@
 //!Thats it!
 //!Note that you have acess inside the closure to the original function denoted by the prefix
 //!`original_` + the function name
-//!
-//!Couple of points:
-//!- If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
-//!you don't free it
 //!
 //!Check out the examples for more info
 

@@ -8,7 +8,7 @@ Hook libc functions with an easy API
 
 2- Create an [Command](std::process::Command) with [Command::new](std::process::Command::new) and add hooks to it via [add_hook](RunHook::add_hook) and [add_hooks](RunHook::add_hooks) methods
 
-3- Confirm the hooks with [set_hooks](RunHook::set_hooks) method this step is necessary
+3- Confirm the hooks with [set_hooks](Anchor::set_hooks) method this step is necessary
 
 3.1- Hooks are closures that takes no input and return an option of the libc function as output.
 
@@ -30,6 +30,7 @@ The closure used for hooks have acess to many things: (imported by https://githu
 - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 - You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
 - Add `.map_err(|e|println("{}",e))` after `set_hooks` in order to prettify the dynamic library compiling error while debugging
+- If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so you don't free it
 
 ### Example
 
@@ -58,10 +59,6 @@ std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
 Thats it!
 Note that you have acess inside the closure to the original function denoted by the prefix
 `original_` + the function name
-
-Couple of points:
-- If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so
-you don't free it
 
 Check out the examples for more info
 
