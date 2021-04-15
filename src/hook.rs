@@ -1,10 +1,11 @@
 use crate::libcfn;
+use std::hash::{Hash, Hasher};
 
 macro_rules! gen_hook_enum {
     ($($variant: ident)*) => (
         #[allow(non_camel_case_types)]
         #[allow(clippy::upper_case_acronyms)]
-        #[derive(Debug, Hash, Eq, PartialEq)]
+        #[derive(Debug, Eq)]
         /// libc hooks enum
         pub enum Hook {
             $($variant(&'static str),)*
@@ -13,6 +14,21 @@ macro_rules! gen_hook_enum {
             pub fn function(&self, ) -> String {
                 match self {
                     $(Hook::$variant(fun) => libcfn::$variant(fun),)*
+                }
+            }
+        }
+        impl PartialEq for Hook {
+            fn eq(&self, other: &Hook) -> bool {
+                match (self, other) {
+                    $((Hook::$variant(_), Hook::$variant(_)) => true,)*
+                    _ => false
+                }
+            }
+        }
+        impl Hash for Hook {
+            fn hash<H: Hasher>(&self, state: &mut H) {
+                match self {
+                    $(Hook::$variant(_) => stringify!($variant).hash(state),)*
                 }
             }
         }
