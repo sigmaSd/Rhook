@@ -43,7 +43,7 @@
 //!function's input/output is
 //!
 //!2- use this crate
-//!```rust
+//!```no_run
 //!use rhook::{RunHook, Hook};
 //!
 //!std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
