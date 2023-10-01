@@ -47,14 +47,21 @@ function's input/output is
 
 2- use this crate
 ```rust
-use rhook::{RunHook, Hook};
+use rhook::{Hook, RunHook};
 
-fn main () {
- std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
-  std::thread::sleep(std::time::Duration::from_millis(10));
-  // since we're not doing any modification to the output you can just return None here
-  Some(original_recv(socket, buf, len, flags))
- }))).set_hooks().unwrap().spawn().unwrap();
+fn main() {
+    std::process::Command::new("speedtest")
+        .add_hook(Hook::recv(stringify!(|| {
+            std::thread::sleep(std::time::Duration::from_millis(10));
+            // since we're not doing any modification to the output you can just return None here
+            Some(original_recv(socket, buf, len, flags))
+        })))
+        .set_hooks()
+        //  uncomment this line to get readable error in case of a panic
+        // .map_err(|e| println!("{}", e))
+        .unwrap()
+        .spawn()
+        .unwrap();
 }
 ```
 
