@@ -29,7 +29,7 @@ The closure used for hooks have acess to many things: (imported by https://githu
 - The original function with the following name `original_$libcfn` this is useful in particular to avoid recursion
 - Some varaibles to make coding easier: `transmute` `ManuallyDrop` `CString` and a static mut `COUNTER`
 - You can find the input/output of a function by looking it up here [libc](https://docs.rs/libc)
-- Add `.map_err(|e|println("{}",e))` after `set_hooks` in order to prettify the dynamic library compiling error while debugging
+- Add `.map_err(|e|println!("{}",e))` after `set_hooks` in order to prettify the dynamic library compiling error while debugging
 - If you take ownership of an input value inside of the closure, be sure to use ManuallyDrop so you don't free it
 
 ### Example
@@ -49,11 +49,13 @@ function's input/output is
 ```rust
 use rhook::{RunHook, Hook};
 
-std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
- std::thread::sleep(std::time::Duration::from_millis(10));
- // since we're not doing any modification to the output you can just return None here
- Some(original_recv(socket, buf, len, flags))
-}))).set_hooks().unwrap().spawn();
+fn main () {
+ std::process::Command::new("speedtest").add_hook(Hook::recv(stringify!(||{
+  std::thread::sleep(std::time::Duration::from_millis(10));
+  // since we're not doing any modification to the output you can just return None here
+  Some(original_recv(socket, buf, len, flags))
+ }))).set_hooks().unwrap().spawn().unwrap();
+}
 ```
 
 Thats it!
